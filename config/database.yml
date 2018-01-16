@@ -15,6 +15,7 @@ production:
   <<: *default
   host: 10.0.0.13
   database: justificador
+  socket: /var/lib/mysql/mysql.sock
 #  password: <%= ENV['JUSTIFICADOR_DATABASE_PASSWORD'] %>
 
 production_cimavnetmultix:
