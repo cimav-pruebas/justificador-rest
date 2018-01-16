@@ -1,0 +1,217 @@
+<%= form_with(model: justificacion, local: true) do |form| %>
+  <% if justificacion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(justificacion.errors.count, "error") %> prohibited this justificacion from being saved:</h2>
+
+      <ul>
+      <% justificacion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :empleado_id %>
+    <%= form.number_field :empleado_id, id: :justificacion_empleado_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tipo_id %>
+    <%= form.text_field :tipo_id, id: :justificacion_tipo_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :empleado_elaboro_id %>
+    <%= form.number_field :empleado_elaboro_id, id: :justificacion_empleado_elaboro_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :empleado_autorizo_id %>
+    <%= form.number_field :empleado_autorizo_id, id: :justificacion_empleado_autorizo_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :requisicion %>
+    <%= form.text_field :requisicion, id: :justificacion_requisicion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :proyecto %>
+    <%= form.text_field :proyecto, id: :justificacion_proyecto %>
+  </div>
+
+  <div class="field">
+    <%= form.label :proveedor_uno %>
+    <%= form.text_field :proveedor_uno, id: :justificacion_proveedor_uno %>
+  </div>
+
+  <div class="field">
+    <%= form.label :proveedor_dos %>
+    <%= form.text_field :proveedor_dos, id: :justificacion_proveedor_dos %>
+  </div>
+
+  <div class="field">
+    <%= form.label :proveedor_tres %>
+    <%= form.text_field :proveedor_tres, id: :justificacion_proveedor_tres %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bien_servicio %>
+    <%= form.number_field :bien_servicio, id: :justificacion_bien_servicio %>
+  </div>
+
+  <div class="field">
+    <%= form.label :subtotal %>
+    <%= form.text_field :subtotal, id: :justificacion_subtotal %>
+  </div>
+
+  <div class="field">
+    <%= form.label :iva %>
+    <%= form.text_field :iva, id: :justificacion_iva %>
+  </div>
+
+  <div class="field">
+    <%= form.label :importe %>
+    <%= form.text_field :importe, id: :justificacion_importe %>
+  </div>
+
+  <div class="field">
+    <%= form.label :condiciones_pago %>
+    <%= form.text_area :condiciones_pago, id: :justificacion_condiciones_pago %>
+  </div>
+
+  <div class="field">
+    <%= form.label :datosbanco %>
+    <%= form.text_field :datosbanco, id: :justificacion_datosbanco %>
+  </div>
+
+  <div class="field">
+    <%= form.label :razoncompra %>
+    <%= form.text_area :razoncompra, id: :justificacion_razoncompra %>
+  </div>
+
+  <div class="field">
+    <%= form.label :terminos_entrega %>
+    <%= form.text_field :terminos_entrega, id: :justificacion_terminos_entrega %>
+  </div>
+
+  <div class="field">
+    <%= form.label :plazo_entrega %>
+    <%= form.text_field :plazo_entrega, id: :justificacion_plazo_entrega %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rfc %>
+    <%= form.text_field :rfc, id: :justificacion_rfc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :curp %>
+    <%= form.text_field :curp, id: :justificacion_curp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :telefono %>
+    <%= form.text_field :telefono, id: :justificacion_telefono %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :justificacion_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha_inicio %>
+    <%= form.date_select :fecha_inicio, id: :justificacion_fecha_inicio %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha_termino %>
+    <%= form.date_select :fecha_termino, id: :justificacion_fecha_termino %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha_elaboracion %>
+    <%= form.date_select :fecha_elaboracion, id: :justificacion_fecha_elaboracion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :descripcion %>
+    <%= form.text_area :descripcion, id: :justificacion_descripcion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :monto_uno %>
+    <%= form.text_field :monto_uno, id: :justificacion_monto_uno %>
+  </div>
+
+  <div class="field">
+    <%= form.label :monto_dos %>
+    <%= form.text_field :monto_dos, id: :justificacion_monto_dos %>
+  </div>
+
+  <div class="field">
+    <%= form.label :monto_tres %>
+    <%= form.text_field :monto_tres, id: :justificacion_monto_tres %>
+  </div>
+
+  <div class="field">
+    <%= form.label :domicilio %>
+    <%= form.text_field :domicilio, id: :justificacion_domicilio %>
+  </div>
+
+  <div class="field">
+    <%= form.label :moneda_id %>
+    <%= form.text_field :moneda_id, id: :justificacion_moneda_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :es_unico %>
+    <%= form.check_box :es_unico, id: :justificacion_es_unico %>
+  </div>
+
+  <div class="field">
+    <%= form.label :plazo %>
+    <%= form.number_field :plazo, id: :justificacion_plazo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :num_pagos %>
+    <%= form.number_field :num_pagos, id: :justificacion_num_pagos %>
+  </div>
+
+  <div class="field">
+    <%= form.label :porcen_anticipo %>
+    <%= form.number_field :porcen_anticipo, id: :justificacion_porcen_anticipo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :autoriza_cargo %>
+    <%= form.text_field :autoriza_cargo, id: :justificacion_autoriza_cargo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :forma_pago %>
+    <%= form.text_field :forma_pago, id: :justificacion_forma_pago %>
+  </div>
+
+  <div class="field">
+    <%= form.label :num_dias_plazo %>
+    <%= form.number_field :num_dias_plazo, id: :justificacion_num_dias_plazo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :motivo_selection %>
+    <%= form.text_area :motivo_selection, id: :justificacion_motivo_selection %>
+  </div>
+
+  <div class="field">
+    <%= form.label :es_nacional %>
+    <%= form.check_box :es_nacional, id: :justificacion_es_nacional %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

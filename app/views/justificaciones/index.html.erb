@@ -1,0 +1,105 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Justificaciones</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Empleado</th>
+      <th>Tipo</th>
+      <th>Empleado elaboro</th>
+      <th>Empleado autorizo</th>
+      <th>Requisicion</th>
+      <th>Proyecto</th>
+      <th>Proveedor uno</th>
+      <th>Proveedor dos</th>
+      <th>Proveedor tres</th>
+      <th>Bien servicio</th>
+      <th>Subtotal</th>
+      <th>Iva</th>
+      <th>Importe</th>
+      <th>Condiciones pago</th>
+      <th>Datosbanco</th>
+      <th>Razoncompra</th>
+      <th>Terminos entrega</th>
+      <th>Plazo entrega</th>
+      <th>Rfc</th>
+      <th>Curp</th>
+      <th>Telefono</th>
+      <th>Email</th>
+      <th>Fecha inicio</th>
+      <th>Fecha termino</th>
+      <th>Fecha elaboracion</th>
+      <th>Descripcion</th>
+      <th>Monto uno</th>
+      <th>Monto dos</th>
+      <th>Monto tres</th>
+      <th>Domicilio</th>
+      <th>Moneda</th>
+      <th>Es unico</th>
+      <th>Plazo</th>
+      <th>Num pagos</th>
+      <th>Porcen anticipo</th>
+      <th>Autoriza cargo</th>
+      <th>Forma pago</th>
+      <th>Num dias plazo</th>
+      <th>Motivo selection</th>
+      <th>Es nacional</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @justificaciones.each do |justificacion| %>
+      <tr>
+        <td><%= justificacion.empleado_id %></td>
+        <td><%= justificacion.tipo %></td>
+        <td><%= justificacion.empleado_elaboro_id %></td>
+        <td><%= justificacion.empleado_autorizo_id %></td>
+        <td><%= justificacion.requisicion %></td>
+        <td><%= justificacion.proyecto %></td>
+        <td><%= justificacion.proveedor_uno %></td>
+        <td><%= justificacion.proveedor_dos %></td>
+        <td><%= justificacion.proveedor_tres %></td>
+        <td><%= justificacion.bien_servicio %></td>
+        <td><%= justificacion.subtotal %></td>
+        <td><%= justificacion.iva %></td>
+        <td><%= justificacion.importe %></td>
+        <td><%= justificacion.condiciones_pago %></td>
+        <td><%= justificacion.datosbanco %></td>
+        <td><%= justificacion.razoncompra %></td>
+        <td><%= justificacion.terminos_entrega %></td>
+        <td><%= justificacion.plazo_entrega %></td>
+        <td><%= justificacion.rfc %></td>
+        <td><%= justificacion.curp %></td>
+        <td><%= justificacion.telefono %></td>
+        <td><%= justificacion.email %></td>
+        <td><%= justificacion.fecha_inicio %></td>
+        <td><%= justificacion.fecha_termino %></td>
+        <td><%= justificacion.fecha_elaboracion %></td>
+        <td><%= justificacion.descripcion %></td>
+        <td><%= justificacion.monto_uno %></td>
+        <td><%= justificacion.monto_dos %></td>
+        <td><%= justificacion.monto_tres %></td>
+        <td><%= justificacion.domicilio %></td>
+        <td><%= justificacion.moneda %></td>
+        <td><%= justificacion.es_unico %></td>
+        <td><%= justificacion.plazo %></td>
+        <td><%= justificacion.num_pagos %></td>
+        <td><%= justificacion.porcen_anticipo %></td>
+        <td><%= justificacion.autoriza_cargo %></td>
+        <td><%= justificacion.forma_pago %></td>
+        <td><%= justificacion.num_dias_plazo %></td>
+        <td><%= justificacion.motivo_selection %></td>
+        <td><%= justificacion.es_nacional %></td>
+        <td><%= link_to 'Show', justificacion %></td>
+        <td><%= link_to 'Edit', edit_justificacion_path(justificacion) %></td>
+        <td><%= link_to 'Destroy', justificacion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Justificacion', new_justificacion_path %>

@@ -1,0 +1,32 @@
+<%= form_with(model: asistente, local: true) do |form| %>
+  <% if asistente.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(asistente.errors.count, "error") %> prohibited this asistente from being saved:</h2>
+
+      <ul>
+      <% asistente.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :asistente %>
+    <%= form.text_field :asistente, id: :asistente_asistente %>
+  </div>
+
+  <div class="field">
+    <%= form.label :asistente_id %>
+    <%= form.text_field :asistente_id, id: :asistente_asistente_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :empleado_id %>
+    <%= form.text_field :empleado_id, id: :asistente_empleado_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
