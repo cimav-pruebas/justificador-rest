@@ -59,3 +59,4 @@ gem 'prawn-table'
 
 group :production do
   gem 'therubyracer', :platform => :ruby
+end

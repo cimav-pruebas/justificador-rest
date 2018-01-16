@@ -13,9 +13,9 @@ development:
 
 production:
   <<: *default
-  database: justificador_production
-  username: justificador
-  password: <%= ENV['JUSTIFICADOR_DATABASE_PASSWORD'] %>
+  host: 10.0.0.13
+  database: justificador
+#  password: <%= ENV['JUSTIFICADOR_DATABASE_PASSWORD'] %>
 
 production_cimavnetmultix:
   adapter: mysql2
