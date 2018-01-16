@@ -56,3 +56,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # PDFs
 gem 'prawn'
 gem 'prawn-table'
+
+group :production do
+  gem 'therubyracer', :platform => :ruby
