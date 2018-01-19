@@ -22,12 +22,14 @@ class JustificacionesController < ApplicationController
       format.html
       format.json
       format.pdf do
+        filename = "#{@justificacion.autoriza.cuenta_cimav}_#{@justificacion.requisicion}.pdf"
         pdf = PdfJustificacion.new(@justificacion)
-        pdf.render_file "#{@justificacion.autoriza.cuenta_cimav}_#{@justificacion.requisicion}.pdf"
+        pdf.render_file  "public/#{filename}"
         send_data pdf.render,
-                  filename: "#{@justificacion.autoriza.cuenta_cimav}_#{@justificacion.requisicion}.pdf",
+                  filename: filename,
                   type: 'application/pdf',
                   disposition: "inline"
+        File.delete("public/#{filename}");
       end
     end
   end
