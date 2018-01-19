@@ -1,6 +1,7 @@
 class Tipo < ApplicationRecord
 
   attr_accessor :romano
+  attr_accessor :texto
 
   def romano
     case fraccion
@@ -13,6 +14,10 @@ class Tipo < ApplicationRecord
       when 17
         "XVII"
     end
+  end
+
+  def texto
+    self.romano + " " + self.code
   end
 
 end
