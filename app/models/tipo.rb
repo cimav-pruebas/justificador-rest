@@ -5,8 +5,12 @@ class Tipo < ApplicationRecord
 
   def romano
     case fraccion
+      when 1
+        "I"
       when 3
         "III"
+      when 7
+        "VII"
       when 14
         "XIV"
       when 15

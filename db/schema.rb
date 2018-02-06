@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119212933) do
+ActiveRecord::Schema.define(version: 20180206173513) do
 
   create_table "asistentes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "asistente_id"
@@ -63,7 +63,9 @@ ActiveRecord::Schema.define(version: 20180119212933) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "identificador"
+    t.bigint "partida_id"
     t.index ["moneda_id"], name: "index_justificaciones_on_moneda_id"
+    t.index ["partida_id"], name: "index_justificaciones_on_partida_id"
     t.index ["tipo_id"], name: "index_justificaciones_on_tipo_id"
   end
 
@@ -73,6 +75,10 @@ ActiveRecord::Schema.define(version: 20180119212933) do
     t.string "simbolo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "partidas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "nombre"
   end
 
   create_table "tipos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

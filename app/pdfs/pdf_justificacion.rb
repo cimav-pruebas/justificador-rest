@@ -428,9 +428,11 @@ class PdfJustificacion < Prawn::Document
       move_down 10
       text 'VIII.- LUGAR Y FECHA DE EMISIÓN:', style: :bold, align: :center, size: 12, character_spacing: 0.30
       move_down 20
-      text 'En la Ciudad de Chihuahua, Estado de Chihuahua a los 1 días del mes de mayo de 2017, se emite la '+
+
+      text "En la Ciudad de Chihuahua, Estado de Chihuahua a los #{@justificacion.fecha_inicio.strftime('%d')} días del mes de #{get_month_name(@justificacion.fecha_inicio.strftime('%B').to_i)} de #{ @justificacion.fecha_inicio.strftime('%G')}, se emite la "+
                'presente justificación para los efectos legales a que haya lugar.',
            :align => :justify, :inline_format => true, :size => 12, :leading => 2, :character_spacing => 0.30
+
       move_down 10
       text 'En cumplimiento a lo establecido en el penúltimo párrafo del artículo 71 del Reglamento de la Ley de '+
                'Adquisiciones, Arrendamientos y Servicios del Sector Público, se acompaña a la presente como '+

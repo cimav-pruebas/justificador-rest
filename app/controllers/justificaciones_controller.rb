@@ -23,7 +23,11 @@ class JustificacionesController < ApplicationController
       format.json
       format.pdf do
         filename = "#{@justificacion.autoriza.cuenta_cimav}_#{@justificacion.requisicion}.pdf"
-        pdf = PdfJustificacion.new(@justificacion)
+        if @justificacion.tipo.fraccion == 1 ||  @justificacion.tipo.fraccion == 7
+          pdf = PdfDictamen.new(@justificacion)
+        else
+          pdf = PdfJustificacion.new(@justificacion)
+        end
         pdf.render_file  "public/#{filename}"
         send_data pdf.render,
                   filename: filename,
@@ -33,6 +37,22 @@ class JustificacionesController < ApplicationController
       end
     end
   end
+
+  def cotizacion
+    @justificacion = Justificacion.find(params[:id])
+    respond_to do |format|
+      format.pdf do
+        filename = "Cotizacion_#{@justificacion.requisicion}.pdf"
+        pdf = PdfCotizacion.new(@justificacion)
+        pdf.render_file  "public/#{filename}"
+        send_data pdf.render,
+                  filename: filename,
+                  type: 'application/pdf',
+                  disposition: "inline"
+        File.delete("public/#{filename}");
+      end
+    end
+    end
 
   # GET /justificaciones/new
   def new
@@ -84,6 +104,21 @@ class JustificacionesController < ApplicationController
     end
   end
 
+
+  def proveedores
+
+    # regresa todos los proveedores usados anteriormente por el empleado
+
+    proveedores1 = Justificacion.select("proveedor_uno as name").where("empleado_id = #{params[:empleado_id]}").as_json(:except => :id)
+    proveedores2 = Justificacion.select("proveedor_dos as name").where("empleado_id = #{params[:empleado_id]}").as_json(:except => :id)
+    proveedores3 = Justificacion.select("proveedor_tres as name").where("empleado_id = #{params[:empleado_id]}").as_json(:except => :id)
+
+    proveedores = proveedores1 + proveedores2 + proveedores3
+    proveedores = proveedores.to_a.uniq
+
+    render json: proveedores
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_justificacion
@@ -95,6 +130,6 @@ class JustificacionesController < ApplicationController
       params.require(:justificacion).permit(:empleado_id, :tipo_id, :empleado_elaboro_id, :empleado_autorizo_id, :moneda_id, :requisicion, :proyecto, :proveedor_uno, :proveedor_dos, :proveedor_tres, :bien_servicio, :subtotal, :iva, :importe,
                                             :condiciones_pago, :datosbanco, :razoncompra, :terminos_entrega, :plazo_entrega, :rfc, :curp, :telefono, :email, :fecha_inicio, :fecha_termino, :fecha_elaboracion, :descripcion,
                                             :monto_uno, :monto_dos, :monto_tres, :domicilio, :es_unico, :plazo, :num_pagos, :porcen_anticipo, :autoriza_cargo, :forma_pago, :num_dias_plazo, :motivo_seleccion, :es_nacional,
-                                            :identificador)
+                                            :identificador, :partida_id)
     end
 end
