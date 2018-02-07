@@ -43,7 +43,7 @@ class JustificacionesController < ApplicationController
     respond_to do |format|
       format.pdf do
         filename = "Cotizacion_#{@justificacion.requisicion}.pdf"
-        pdf = PdfCotizacion.new(@justificacion)
+        pdf = PdfCotizacion.new(@justificacion, params[:num_provee])
         pdf.render_file  "public/#{filename}"
         send_data pdf.render,
                   filename: filename,

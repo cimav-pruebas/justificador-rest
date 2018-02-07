@@ -1,7 +1,22 @@
 class PdfCotizacion < Prawn::Document
 
-  def initialize(justificacion)
+  def initialize(justificacion, num_provee)
     super()
+
+    case num_provee.to_i
+      when 1
+        proveedor_selected = justificacion.proveedor_uno
+        domicilio = justificacion.domicilio
+      when 2
+        proveedor_selected = justificacion.proveedor_dos
+        domicilio = ""
+      when 3
+        proveedor_selected = justificacion.proveedor_tres
+        domicilio = ""
+      else
+        proveedor_selected = "Desconocido"
+        domicilio = ""
+    end
 
     direccion_cimav = "Miguel de Cervantes 120, Complejo Industrial Chihuahua\nChihuahua, Chih. México. C.P. 31136"
 
@@ -31,8 +46,8 @@ class PdfCotizacion < Prawn::Document
     draw_text 'ASUNTO: SOLICITUD DE COTIZACIÓN', size: 11, style: :bold, :at=>[300, 640]
 
     draw_text :"A quien corresponda:", size: 11, :at=>[0,610]
-    draw_text :"#{justificacion.proveedor_uno}" , style: :bold, size: 11, :at=>[0, 595]
-    draw_text :"#{justificacion.domicilio}" , size: 11, :at=>[0, 580]
+    draw_text :"#{proveedor_selected}" , style: :bold, size: 11, :at=>[0, 595]
+    draw_text :"#{domicilio}" , size: 11, :at=>[0, 580]
 
     fecha = "#{justificacion.fecha_termino.strftime('%d')} de #{get_month_name(justificacion.fecha_termino.strftime('%m').to_i)} de #{justificacion.fecha_termino.strftime('%G')}"
 

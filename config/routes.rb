@@ -12,6 +12,6 @@ Rails.application.routes.draw do
 
   get '/proveedores/:empleado_id', to: 'justificaciones#proveedores'
 
-  get '/cotizaciones/:id', to: 'justificaciones#cotizacion'
+  get '/cotizaciones/:id/:num_provee', to: 'justificaciones#cotizacion'
 
 end
