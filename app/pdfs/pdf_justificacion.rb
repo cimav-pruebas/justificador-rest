@@ -455,6 +455,12 @@ class PdfJustificacion < Prawn::Document
     move_down 50
     text @justificacion.elabora.nombre+"\n"+'RESPONSABLE DEL PROYECTO', style: :bold, align: :center, size: 12, character_spacing: 0.30
 
+    number_pages"<page> / <total>", :at => [bounds.right - 165, -15],
+                :width => 150,
+                :align => :right,
+                :size => 10,
+                :start_count_at => 1
+
   end
 
   def get_month_name(number)
