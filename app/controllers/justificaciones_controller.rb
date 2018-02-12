@@ -23,7 +23,8 @@ class JustificacionesController < ApplicationController
       format.json
       format.pdf do
         filename = "#{@justificacion.autoriza.cuenta_cimav}_#{@justificacion.requisicion}.pdf"
-        if @justificacion.tipo.fraccion == 1 ||  @justificacion.tipo.fraccion == 7
+        # if @justificacion.tipo.fraccion == 1 ||  @justificacion.tipo.fraccion == 7
+        if @justificacion.tipo.fraccion == 7
           pdf = PdfDictamen.new(@justificacion)
         else
           pdf = PdfJustificacion.new(@justificacion)
