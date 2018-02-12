@@ -35,8 +35,7 @@ class PdfCotizacion < Prawn::Document
     end
 
     draw_text 'FECHA:', size: 11, style: :bold, :at=>[300, 660]
-    fecha = "#{justificacion.fecha_elaboracion.strftime('%d')} de #{get_month_name(justificacion.fecha_elaboracion.strftime('%m').to_i)} de #{justificacion.fecha_elaboracion.strftime('%G')}"
-    draw_text fecha , size: 12, style: :bold, :at=>[400, 660]
+    draw_text fecha(justificacion.fecha_elaboracion) , size: 12, style: :bold, :at=>[400, 660]
     stroke do
       move_down 8
       stroke_color 'b3b3b3'
@@ -48,8 +47,6 @@ class PdfCotizacion < Prawn::Document
     draw_text :"A quien corresponda:", size: 11, :at=>[0,610]
     draw_text :"#{proveedor_selected}" , style: :bold, size: 11, :at=>[0, 595]
     draw_text :"#{domicilio}" , size: 11, :at=>[0, 580]
-
-    fecha = "#{justificacion.fecha_termino.strftime('%d')} de #{get_month_name(justificacion.fecha_termino.strftime('%m').to_i)} de #{justificacion.fecha_termino.strftime('%G')}"
 
     move_down 120
     txt = "El <b>Cimav</b>, como Centro de Investigación del Gobierno Federal, requiere para sus actividades de suministro, \f
@@ -77,7 +74,7 @@ Mucho agradeceré que en su respuesta se incluya: <i>Lugar y fecha de cotizació
 
 Para el caso de dudas, comentarios y/o aclaraciones, remitirlas a los correos: <b>jorge.parra@cimav.edu.mx</b> y <b>#{justificacion.elabora.cuenta_cimav}@cimav.edu.mx</b>
 
-La fecha límite para presentar la cotización es el: <b>#{fecha}</b>
+La fecha límite para presentar la cotización es el: <b>#{fecha(justificacion.fecha_termino)}</b>
 
 Favor de enviar acuse de recibo de esta solicitud al correo electrónico a: <b>#{justificacion.elabora.cuenta_cimav}@cimav.edu.mx</b>
 
@@ -204,6 +201,10 @@ tipo de procedimiento de contratación)"
       end
     end
 
+  end
+
+  def fecha(_fecha)
+    "#{_fecha.strftime('%d')} de #{get_month_name(_fecha.strftime('%m').to_i)} de #{_fecha.strftime('%y')}"
   end
 
   def get_month_name(number)

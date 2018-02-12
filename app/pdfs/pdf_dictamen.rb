@@ -12,12 +12,11 @@ class PdfDictamen < Prawn::Document
 
     @map = Hash[
         'plazo_0' => "El plazo en que se requiere el suministro de los #{@justificacion.biensServicios}, corresponde al periodo del "+
-        @justificacion.fecha_inicio.strftime('%d')+' de '+ get_month_name(@justificacion.fecha_inicio.strftime('%B').to_i)+' de '+
-        @justificacion.fecha_inicio.strftime('%G')+' y hasta el '+ @justificacion.fecha_termino.strftime('%d')+' de '+get_month_name(@justificacion.fecha_termino.strftime('%m').to_i)+ ' de ' + @justificacion.fecha_termino.strftime('%G')+
+        fecha(justificacion.fecha_inicio) + ' y hasta el '+ fecha(justificacion.fecha_termino)+
         ". Las condiciones en las que se entregarán los  #{@justificacion.biensServicios} son las siguientes:\n\n"+ @justificacion.condiciones_pago,
 
         'plazo_1' => "La fecha en que se requiere el suministro de los  #{@justificacion.biensServicios}, corresponde al día "+
-        @justificacion.fecha_termino.strftime('%d')+' de '+ get_month_name(@justificacion.fecha_termino.strftime('%m').to_i) + ' de '+@justificacion.fecha_termino.strftime('%G')+ '. Las condiciones en las que se '+
+            fecha(justificacion.fecha_termino)+ '. Las condiciones en las que se '+
         "entregarán los  #{@justificacion.biensServicios} son las siguientes:\n\n "+@justificacion.condiciones_pago,
 
         'plazo_2' => "El plazo en que se requiere el suministro de los  #{@justificacion.biensServicios}, " + diasCorresponde+
@@ -263,9 +262,7 @@ Lo anterior de acuerdo con lo establecido en el numeral 4.2.4 (Adjudicación Dir
     text "VIII.- LUGAR Y FECHA DE EMISION", :align=>:center, style: :bold
     move_down 20
 
-    txt ="En la ciudad de Chihuahua, Estado de Chihuahua, a los <b>#{justificacion.fecha_elaboracion.strftime('%d')}</b> días del \f
-mes de <b>#{get_month_name(justificacion.fecha_elaboracion.strftime('%m').to_i)}</b> de <b>#{justificacion.fecha_elaboracion.strftime('%G')}</b>, \f
-se emite el  presente dictamen y  justificación para los efectos legales a que haya lugar.
+    txt ="En la ciudad de Chihuahua, Chihuahua, al <b>#{fecha(justificacion.fecha_elaboracion)}</b>, se emite el  presente dictamen y  justificación para los efectos legales a que haya lugar.
 
 En cumplimiento a lo establecido en el penúltimo párrafo del artículo 71 del Reglamento de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Publico, se acompañara al presente la requisición,  a la cual se le deberá anexar, mediante sello del Departamento de Presupuesto, la constancia con la que se acredita la existencia de recursos para iniciar el procedimiento de contratación."
     txt = txt.gsub(/\f\n/, '')
@@ -298,6 +295,10 @@ incumplimiento haya sido considerado como causa de desechamiento porque afecta d
 
 
     #stroke_axis
+  end
+
+  def fecha(_fecha)
+    "#{_fecha.strftime('%d')} de #{get_month_name(_fecha.strftime('%m').to_i)} de #{_fecha.strftime('%y')}"
   end
 
   def monto_to_currency(monto)

@@ -31,54 +31,40 @@ class PdfJustificacion < Prawn::Document
       }
     end
 
-    @map = Hash['texto1_I' => 'No existan bienes o servicios alternativos o sustitutos técnicamente razonables, o bien, que en el '+
-        'mercado sólo existe un posible oferente, o se trate de una persona que posee la titularidad o el '+
-        'licenciamiento exclusivo de patentes, derechos de autor, u otros derechos exclusivos, o por '+
-        'tratarse de obras de arte.',
+    @map = Hash['texto1_I' => "No existan bienes o servicios alternativos o sustitutos técnicamente razonables, o bien, que en el \f
+mercado sólo existe un posible oferente, o se trate de una persona que posee la titularidad o el licenciamiento exclusivo de patentes, \f
+derechos de autor, u otros derechos exclusivos, o por tratarse de obras de arte.",
 
-                'texto1_III' => 'Existan circunstancias que puedan provocar pérdidas o costos adicionales importantes, '+
-                    'cuantificados y justificados.',
+                'texto1_III' => "Existan circunstancias que puedan provocar pérdidas o costos adicionales importantes, cuantificados y justificados.",
 
-                'texto1_XIV' => 'Se trate de los servicios prestados por una persona física a que se refiere la fracción '+
-                    'VII del artículo 3 de esta Ley, siempre que éstos sean realizados por ella misma sin '+
-                    'requerir de la utilización de más de un especialista o técnico',
+                'texto1_XIV' => "Se trate de los servicios prestados por una persona física a que se refiere la fracción VII del artículo 3 de esta Ley, \f
+siempre que éstos sean realizados por ella misma sin requerir de la utilización de más de un especialista o técnico",
 
-                'texto1_XV' => 'Se trate de servicios de mantenimiento de bienes en los que no sea posible precisar '+
-                    'su alcance, establecer las cantidades de trabajo o determinar las especificaciones '+
-                    'correspondientes.',
+                'texto1_XV' => "Se trate de servicios de mantenimiento de bienes en los que no sea posible precisar su alcance, establecer las \f
+cantidades de trabajo o determinar las especificaciones correspondientes.",
 
-                'texto1_XVII' => 'Se trate de equipos especializados, sustancias, y materiales de origen químico, físico '+
-                    'químico o bioquímico para ser utilizadas en actividades experimentales requeridas en proyectos de '+
-                    'investigación científica y desarrollo tecnológico, siempre que dichos proyectos se encuentren '+
-                    'autorizados por quien determine el titular de la dependencia o el órgano de gobierno de la entidad.',
+                'texto1_XVII' => "Se trate de equipos especializados, sustancias, y materiales de origen químico, físico químico o bioquímico para ser \f
+utilizadas en actividades experimentales requeridas en proyectos de investigación científica y desarrollo tecnológico, siempre que dichos proyectos se \f
+encuentren autorizados por quien determine el titular de la dependencia o el órgano de gobierno de la entidad.",
 
-                'plazo_0' => "El plazo en que se requiere el suministro de los #{@justificacion.biensServicios}, corresponde al periodo del "+
-                    @justificacion.fecha_inicio.strftime('%d')+' de '+ get_month_name(@justificacion.fecha_inicio.strftime('%B').to_i)+' de '+
-                    @justificacion.fecha_inicio.strftime('%G')+' y hasta el '+ @justificacion.fecha_termino.strftime('%d')+' de '+get_month_name(@justificacion.fecha_termino.strftime('%m').to_i)+ ' de ' + @justificacion.fecha_termino.strftime('%G')+
-                    ". Las condiciones en las que se entregarán los  #{@justificacion.biensServicios} son las siguientes:\n\n"+ @justificacion.condiciones_pago,
+                'plazo_0' => "El plazo en que se requiere el suministro de los #{@justificacion.biensServicios}, corresponde al periodo del \f
+#{fecha(justificacion.fecha_inicio)} y hasta el #{fecha(justificacion.fecha_termino)}. Las condiciones en las que se entregarán los  #{@justificacion.biensServicios} son las siguientes:\n\n #{@justificacion.condiciones_pago}",
 
-                'plazo_1' => "La fecha en que se requiere el suministro de los  #{@justificacion.biensServicios}, corresponde al día "+
-                    @justificacion.fecha_termino.strftime('%d')+' de '+ get_month_name(@justificacion.fecha_termino.strftime('%m').to_i) + ' de '+@justificacion.fecha_termino.strftime('G')+ '. Las condiciones en las que se '+
-                    "entregarán los  #{@justificacion.biensServicios} son las siguientes:\n\n "+@justificacion.condiciones_pago,
+                'plazo_1' => "La fecha en que se requiere el suministro de los  #{@justificacion.biensServicios}, corresponde al día /f
+#{fecha(justificacion.fecha_termino)}. Las condiciones en las que se entregarán los  #{@justificacion.biensServicios} son las siguientes:\n\n #{@justificacion.condiciones_pago}",
 
-                'plazo_2' => "El plazo en que se requiere el suministro de los  #{@justificacion.biensServicios}, " + @diasCorresponde+
-                    ' después de la elaboración de este documento.'+' Las condiciones en las que se entregarán los '+
-                    "#{@justificacion.biensServicios} son las siguientes:\n\n " + @justificacion.condiciones_pago,
+                'plazo_2' => "El plazo en que se requiere el suministro de los  #{@justificacion.biensServicios}, #{@diasCorresponde} después de la elaboración \f
+de este documento. Las condiciones en las que se entregarán los #{@justificacion.biensServicios} son las siguientes:\n\n #{@justificacion.condiciones_pago}",
 
-                'nota_1' => 'Asimismo se hace constar mediante el sello y firma del responsable del área de '+
-                    'Almacén, la No Existencia de Bienes o Nivel de Inventario que demuestra que se cumplió con lo '+
-                    'establecido en el artículo 27 del RLAASP.',
+                'nota_1' => "Asimismo se hace constar mediante el sello y firma del responsable del área de Almacén, la No Existencia de Bienes o Nivel de Inventario \f
+que demuestra que se cumplió con lo establecido en el artículo 27 del RLAASP.",
 
-                'transparecia_unico' =>'Para la integración del procedimiento de contratación por adjudicación directa, '+
-                    'los servidores públicos de las áreas requirentes han tenido acceso de manera oportuna, clara y '+
-                    "completa de las características requeridas de los  #{@justificacion.biensServicios} con el fin de demostrar que es el "+
-                    "único proveedor que proporciona los  #{@justificacion.biensServicios} que se pretenden contratar, en el entendido "+
-                    'que para garantizar la transparencia del procedimiento de contratación, la información respectiva será '+
-                    'incorporada al Sistema de Compras Gubernamentales (CompraNet), en los términos de las disposiciones '+
-                    'legales aplicables, Lo anterior de acuerdo con lo establecido en el numeral 4.2.4 (ADJUDICACIÓN DIRECTA) '+
-                    'y numeral 4.2.4.1.1 (Verificar Acreditamiento de Excepción) del Acuerdo por el que se modifica el '+
-                    'Manual Administrativo de Aplicación General en Materia de Adquisiciones, Arrendamientos y Servicios del '+
-                    'Sector Público, publicado en el Diario Oficial de la Federación el 21 de noviembre de 2012.',
+                'transparecia_unico' =>"Para la integración del procedimiento de contratación por adjudicación directa, los servidores públicos de las áreas requirentes han tenido acceso \f
+de manera oportuna, clara y completa de las características requeridas de los  #{@justificacion.biensServicios} con el fin de demostrar que es el único proveedor que proporciona \f
+los #{@justificacion.biensServicios} que se pretenden contratar, en el entendido que para garantizar la transparencia del procedimiento de contratación, la información respectiva \f
+será incorporada al Sistema de Compras Gubernamentales (CompraNet), en los términos de las disposiciones legales aplicables, Lo anterior de acuerdo con lo establecido en el \f
+numeral 4.2.4 (ADJUDICACIÓN DIRECTA) y numeral 4.2.4.1.1 (Verificar Acreditamiento de Excepción) del Acuerdo por el que se modifica el Manual Administrativo de Aplicación General en Materia \f
+de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en el Diario Oficial de la Federación el 21 de noviembre de 2012.",
 
                 'transparencia_no_unico' =>'Todas las personas que han presentado cotización para la integración del '+
                     'procedimiento de contratación por adjudicación directa, han tenido acceso de manera oportuna, clara y '+
@@ -154,7 +140,7 @@ class PdfJustificacion < Prawn::Document
     text "II.- PLAZOS Y CONDICIONES DEL SUMINISTRO DE LOS  #{@justificacion.biensServicios.upcase}", style: :bold, align: :center, size: 12
     move_down 10
     indent(30) do
-      text "#{@map['plazo_'+@justificacion.plazo.to_s]}",size: 12, align: :justify, leading: 1, character_spacing: 0.5
+      text "#{@map['plazo_'+@justificacion.plazo.to_s]}".gsub(/\f\n/, ''),size: 12, align: :justify, leading: 1, character_spacing: 0.5
     end
 
     move_down 30
@@ -236,7 +222,7 @@ class PdfJustificacion < Prawn::Document
            align: :justify, leading: 2, size: 12, character_spacing: 0.25
 
       tmp = '' + "texto1_#{justificacion.tipo.romano}" + ''
-      text "<b>#{@map[tmp]}. </b>"+
+      text "<b>#{@map[tmp]}</b>".gsub(/\f\n/, '')+
                'Actualizándose el supuesto de excepción a la licitación pública '+
                "establecido en la fracción #{justificacion.tipo.romano} del artículo 41 de la Ley de Adquisiciones, Arrendamientos y "+
                'Servicios del Sector Público, en relación con lo establecido en el artículo 72 de su Reglamento.',
@@ -412,13 +398,13 @@ class PdfJustificacion < Prawn::Document
     if @justificacion.es_unico
       indent(30) do
         text '- Transparencia', style: :bold , size:12
-        text @map['transparecia_unico'],
+        text @map['transparecia_unico'].gsub(/\f\n/, ''),
              :align => :justify, :inline_format => true, :size => 12, :leading => 2, :character_spacing => 0.30
       end
     else
       indent(30)do
         text '- Transparencia', style: :bold , size:12
-        text @map['transparencia_no_unico'],
+        text @map['transparencia_no_unico'].gsub(/\f\n/, ''),
              :align => :justify, :inline_format => true, :size => 12, :leading => 2, :character_spacing => 0.30
       end
     end
@@ -428,9 +414,7 @@ class PdfJustificacion < Prawn::Document
       move_down 10
       text 'VIII.- LUGAR Y FECHA DE EMISIÓN:', style: :bold, align: :center, size: 12, character_spacing: 0.30
       move_down 20
-
-      text "En la Ciudad de Chihuahua, Estado de Chihuahua a los #{@justificacion.fecha_inicio.strftime('%d')} días del mes de #{get_month_name(@justificacion.fecha_inicio.strftime('%B').to_i)} de #{ @justificacion.fecha_inicio.strftime('%G')}, se emite la "+
-               'presente justificación para los efectos legales a que haya lugar.',
+      text "En la Ciudad de Chihuahua, Chihuahua al #{fecha(justificacion.fecha_elaboracion)}, se emite la presente justificación para los efectos legales a que haya lugar.",
            :align => :justify, :inline_format => true, :size => 12, :leading => 2, :character_spacing => 0.30
 
       move_down 10
@@ -445,7 +429,7 @@ class PdfJustificacion < Prawn::Document
     if @justificacion.es_unico
       indent(30)do
         move_down 10
-        text @map['nota_1'],
+        text @map['nota_1'].gsub(/\f\n/, ''),
              :align => :justify, :inline_format => true, :size => 12, :leading => 2, :character_spacing => 0.30
       end
     end
@@ -461,6 +445,10 @@ class PdfJustificacion < Prawn::Document
                 :size => 10,
                 :start_count_at => 1
 
+  end
+
+  def fecha(_fecha)
+    "#{_fecha.strftime('%d')} de #{get_month_name(_fecha.strftime('%m').to_i)} de #{_fecha.strftime('%y')}"
   end
 
   def get_month_name(number)
