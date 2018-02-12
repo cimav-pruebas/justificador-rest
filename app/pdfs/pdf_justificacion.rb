@@ -448,7 +448,7 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
   end
 
   def fecha(_fecha)
-    "#{_fecha.strftime('%d')} de #{get_month_name(_fecha.strftime('%m').to_i)} de #{_fecha.strftime('%y')}"
+    "#{_fecha.strftime('%d')} de #{get_month_name(_fecha.strftime('%m').to_i)} de #{_fecha.strftime('%Y')}"
   end
 
   def get_month_name(number)

@@ -298,7 +298,7 @@ incumplimiento haya sido considerado como causa de desechamiento porque afecta d
   end
 
   def fecha(_fecha)
-    "#{_fecha.strftime('%d')} de #{get_month_name(_fecha.strftime('%m').to_i)} de #{_fecha.strftime('%y')}"
+    "#{_fecha.strftime('%d')} de #{get_month_name(_fecha.strftime('%m').to_i)} de #{_fecha.strftime('%Y')}"
   end
 
   def monto_to_currency(monto)
