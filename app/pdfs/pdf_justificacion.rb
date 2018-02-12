@@ -50,7 +50,7 @@ encuentren autorizados por quien determine el titular de la dependencia o el ór
                 'plazo_0' => "El plazo en que se requiere el suministro de los #{@justificacion.biensServicios}, corresponde al periodo del \f
 #{fecha(justificacion.fecha_inicio)} y hasta el #{fecha(justificacion.fecha_termino)}. Las condiciones en las que se entregarán los  #{@justificacion.biensServicios} son las siguientes:\n\n #{@justificacion.condiciones_pago}",
 
-                'plazo_1' => "La fecha en que se requiere el suministro de los  #{@justificacion.biensServicios}, corresponde al día /f
+                'plazo_1' => "La fecha en que se requiere el suministro de los  #{@justificacion.biensServicios}, corresponde al día \f
 #{fecha(justificacion.fecha_termino)}. Las condiciones en las que se entregarán los  #{@justificacion.biensServicios} son las siguientes:\n\n #{@justificacion.condiciones_pago}",
 
                 'plazo_2' => "El plazo en que se requiere el suministro de los  #{@justificacion.biensServicios}, #{@diasCorresponde} después de la elaboración \f
