@@ -174,7 +174,7 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
                 "precio, oportunidad y financiamiento, por ser el único proveedor que proporcione los #{@justificacion.biensServicios} que se pretende " +
                 "contratar la de <b>#{@justificacion.proveedor_uno.upcase}</b>. La referida Investigación de Mercado " +
                 "se acompaña a la presente justificación para determinar que el procedimiento de contratación por " +
-                "adjudicación directa es el idóneo.",size: 12, leading: 2, align: :justify, character_spacing:0.5
+                "adjudicación directa es el idóneo.",size: 12, leading: 2, align: :justify, character_spacing:0.5, :inline_format=>true
       end
 
       move_down 10
