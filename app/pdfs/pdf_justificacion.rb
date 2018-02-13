@@ -166,15 +166,15 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
               [celda2, celda3]]
 
       indent(50,30)do
-        table(data, :column_widths => [80, 380])
+        table(data, :column_widths => [350, 110])
       end
       move_down 20
       indent(30) do
         text'Concluyendo que en conjunto es la única oferta en cuanto a obtener las mejores condiciones, calidad, '+
-                "precio, oportunidad y financiamiento, por ser el único proveedor que proporcione los #{@justificacion.biensServicios} que se pretende contratar la de " +
-                @justificacion.proveedor_uno.upcase + '. La referida Investigación de Mercado ' +
-                'se acompaña a la presente justificación para determinar que el procedimiento de contratación por ' +
-                'adjudicación directa es el idóneo.',size: 12, leading: 2, align: :justify, character_spacing:0.5
+                "precio, oportunidad y financiamiento, por ser el único proveedor que proporcione los #{@justificacion.biensServicios} que se pretende " +
+                "contratar la de <b>#{@justificacion.proveedor_uno.upcase}</b>. La referida Investigación de Mercado " +
+                "se acompaña a la presente justificación para determinar que el procedimiento de contratación por " +
+                "adjudicación directa es el idóneo.",size: 12, leading: 2, align: :justify, character_spacing:0.5
       end
 
       move_down 10
