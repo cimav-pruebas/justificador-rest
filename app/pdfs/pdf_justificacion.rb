@@ -14,15 +14,16 @@ class PdfJustificacion < Prawn::Document
 
     # Operaciones Internas para el manejo de variables
 
-    @diasCorresponde = 'Corresponde a '+@justificacion.num_dias_plazo.to_s+' días'
+    @diasCorresponde = "corresponde a <b>#{@justificacion.num_dias_plazo} días</b>"
     if @justificacion.num_dias_plazo == 1 then
-      @diasCorresponde = "corresponde a un día"
+      @diasCorresponde = "corresponde a <b>un día</b>"
     end
 
     if(@justificacion.iva > 0.00 ) then
       @mas_iva = " mas IVA"
     end
 
+    @datos_banco = "."
     if(@justificacion.datosbanco != '') then
       @datos_banco = ", datos bancarios: #{@justificacion.datosbanco}"
     end
@@ -44,12 +45,12 @@ utilizadas en actividades experimentales requeridas en proyectos de investigaci�
 encuentren autorizados por quien determine el titular de la dependencia o el órgano de gobierno de la entidad.",
 
                 'plazo_0' => "El plazo en que se requiere el suministro de los #{@justificacion.biensServicios}, corresponde al periodo del \f
-#{fecha(justificacion.fecha_inicio)} y hasta el #{fecha(justificacion.fecha_termino)}. Las condiciones en las que se entregarán los  #{@justificacion.biensServicios} son las siguientes:\n\n #{@justificacion.condiciones_pago}",
+<b>#{fecha(justificacion.fecha_inicio)}</b> y hasta el <b>#{fecha(justificacion.fecha_termino)}</b>. Las condiciones en las que se entregarán los #{@justificacion.biensServicios} son las siguientes:\n\n #{@justificacion.condiciones_pago}",
 
-                'plazo_1' => "La fecha en que se requiere el suministro de los  #{@justificacion.biensServicios}, corresponde al día \f
-#{fecha(justificacion.fecha_termino)}. Las condiciones en las que se entregarán los  #{@justificacion.biensServicios} son las siguientes:\n\n #{@justificacion.condiciones_pago}",
+                'plazo_1' => "La fecha en que se requiere el suministro de los #{@justificacion.biensServicios}, corresponde al día \f
+<b>#{fecha(justificacion.fecha_termino)}</b>. Las condiciones en las que se entregarán los #{@justificacion.biensServicios} son las siguientes:\n\n #{@justificacion.condiciones_pago}",
 
-                'plazo_2' => "El plazo en que se requiere el suministro de los  #{@justificacion.biensServicios}, #{@diasCorresponde} después de la elaboración \f
+                'plazo_2' => "El plazo en que se requiere el suministro de los #{@justificacion.biensServicios}, #{@diasCorresponde} después de la elaboración \f
 de este documento. Las condiciones en las que se entregarán los #{@justificacion.biensServicios} son las siguientes:\n\n #{@justificacion.condiciones_pago}",
 
                 'nota_1' => "Asimismo se hace constar mediante el sello y firma del responsable del área de Almacén, la No Existencia de Bienes o Nivel de Inventario \f
@@ -124,7 +125,7 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
     move_down 30
     text "I.- DESCRIPCIÓN DE LOS  #{@justificacion.biensServicios.upcase}", style: :bold, align: :center, size: 12
     move_down 10
-    text "EL/Los  #{@justificacion.biensServicios} que se pretende contratar, son los siguientes: ", size: 12, align: :justify, indent_paragraphs: 30
+    text "El/Los  #{@justificacion.biensServicios} que se pretende contratar, son los siguientes: ", size: 12, align: :justify, indent_paragraphs: 30
     move_down 20
 
     descService = @justificacion.descripcion
@@ -136,7 +137,7 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
     text "II.- PLAZOS Y CONDICIONES DEL SUMINISTRO DE LOS  #{@justificacion.biensServicios.upcase}", style: :bold, align: :center, size: 12
     move_down 10
     indent(30) do
-      text "#{@map['plazo_'+@justificacion.plazo.to_s]}".gsub(/\f\n/, ''),size: 12, align: :justify, leading: 1, character_spacing: 0.5
+      text "#{@map['plazo_'+@justificacion.plazo.to_s]}".gsub(/\f\n/, ''),size: 12, align: :justify, leading: 1, character_spacing: 0.5, inline_format: :true
     end
 
     move_down 30
@@ -156,10 +157,10 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
 
     if @justificacion.es_unico
       move_down 20
-      celda0 = {:content => '<b>PROVEEDOR</b>',:inline_format => true, size: 10, :borders => []}
-      celda1 = {:content => '<b>IMPORTE SIN IVA</b>',:inline_format => true, align: :right, size: 10, :borders => []}
-      celda2 = {:content => "<b>#{@justificacion.proveedor_uno}</b>", size: 10, :borders => [], :inline_format => true}
-      celda3 = {:content => "<b>#{monto_to_currency(@justificacion.monto_uno)}</b>",:inline_format => true, align: :right, size: 10, :borders => []}
+      celda0 = {:content => '<b>PROVEEDOR</b>',:inline_format => true, size: 10, :borders => [:bottom], :border_color => "b3b3b3"}
+      celda1 = {:content => '<b>IMPORTE SIN IVA</b>',:inline_format => true, align: :right, size: 10, :borders => [:bottom], :border_color => "b3b3b3"}
+      celda2 = {:content => "<b>#{@justificacion.proveedor_uno}</b>", size: 10, :borders => [], :inline_format => true, :padding => 2}
+      celda3 = {:content => "<b>#{monto_to_currency(@justificacion.monto_uno)}</b>",:inline_format => true, align: :right, size: 10, :borders => [], :padding => 2}
 
       data = [[celda0, celda1],
               [celda2, celda3]]
@@ -179,14 +180,14 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
       move_down 10
     else
       move_down 20
-      celda0 = {:content => '<b>PROVEEDOR</b>',:inline_format => true, size: 10, :borders => []}
-      celda1 = {:content => '<b>IMPORTE SIN IVA</b>',:inline_format => true, align: :right, size: 10, :borders => []}
-      celda2 = {:content => "<b>#{@justificacion.proveedor_uno}</b>", size: 10, :borders => [], :inline_format => true}
-      celda3 = {:content => "<b>#{monto_to_currency(@justificacion.monto_uno)}</b>",:inline_format => true, align: :right, size: 10, :borders => []}
-      celda4 = {:content => @justificacion.proveedor_dos, size: 10, :borders => []}
-      celda5 = {:content => "#{monto_to_currency(@justificacion.monto_dos)}", align: :right, size: 10, :borders => []}
-      celda6 = {:content => @justificacion.proveedor_tres, size: 10, :borders => []}
-      celda7 = {:content => "#{monto_to_currency(@justificacion.monto_tres)}", align: :right, size: 10, :borders => []}
+      celda0 = {:content => '<b>PROVEEDOR</b>',:inline_format => true, size: 10, :borders => [:bottom], :border_color => "b3b3b3"}
+      celda1 = {:content => '<b>IMPORTE SIN IVA</b>',:inline_format => true, align: :right, size: 10, :borders => [:bottom], :border_color => "b3b3b3"}
+      celda2 = {:content => "<b>#{@justificacion.proveedor_uno}</b>", size: 10, :borders => [], :inline_format => true, :padding => 2}
+      celda3 = {:content => "<b>#{monto_to_currency(@justificacion.monto_uno)}</b>",:inline_format => true, align: :right, size: 10, :borders => [], :padding => 2}
+      celda4 = {:content => @justificacion.proveedor_dos, size: 10, :borders => [], :padding => 2}
+      celda5 = {:content => "#{monto_to_currency(@justificacion.monto_dos)}", align: :right, size: 10, :borders => [], :padding => 2}
+      celda6 = {:content => @justificacion.proveedor_tres, size: 10, :borders => [], :padding => 2}
+      celda7 = {:content => "#{monto_to_currency(@justificacion.monto_tres)}", align: :right, size: 10, :borders => [], :padding => 2}
       data = [[celda0, celda1],
               [celda2, celda3],
               [celda4, celda5],
@@ -194,18 +195,16 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
       indent(50,30)do
         table(data, :column_widths => [350, 110])
       end
-      move_down 10
+      move_down 14
     end
 
     proveedor_selec = @justificacion.proveedor_uno
     indent(30) do
       text 'Motivo de la selección: ' + @justificacion.motivo_seleccion,size: 12, align: :justify
       move_down 20
-      text'Siendo la oferta que en conjunto presenta las mejores condiciones en cuanto a calidad, precio, oportunidad '+
-              'y financiamiento, la de ' + proveedor_selec.upcase + '. '+
-              'La referida Investigación de Mercado se acompaña a la presente justificación para determinar '+
-              'que el procedimiento de contratación por adjudicación directa es el idóneo.',
-          size: 12, leading: 2, align: :justify, character_spacing:0.5
+      text"Siendo la oferta que en conjunto presenta las mejores condiciones en cuanto a calidad, precio, oportunidad \f
+y financiamiento, la de <b>#{proveedor_selec.upcase}</b>. La referida Investigación de Mercado se acompaña a la presente justificación para determinar \f
+que el procedimiento de contratación por adjudicación directa es el idóneo.".gsub(/\f\n/, ''),size: 12, leading: 2, align: :justify, character_spacing:0.5, :inline_format=>true
     end
 
     move_down 20
@@ -218,7 +217,7 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
            align: :justify, leading: 2, size: 12, character_spacing: 0.25
 
       tmp = '' + "texto1_#{justificacion.tipo.romano}" + ''
-      text "<b>#{@map[tmp]}</b>".gsub(/\f\n/, '')+
+      text "<b>#{@map[tmp]}</b>".gsub(/\f\n/, '')+ ' ' +
                'Actualizándose el supuesto de excepción a la licitación pública '+
                "establecido en la fracción #{justificacion.tipo.romano} del artículo 41 de la Ley de Adquisiciones, Arrendamientos y "+
                'Servicios del Sector Público, en relación con lo establecido en el artículo 72 de su Reglamento.',
@@ -234,7 +233,7 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
     proyect = @justificacion.proyecto.to_s
     indent(50) do
       text "<b>A) MOTIVOS:</b> La contratación de los  #{@justificacion.biensServicios} objeto de la presente justificación es necesaria "+
-               'para satisfacer los requerimientos del proyecto identificado por: '+proyect+'. '+@justificacion.razoncompra+'.'+
+               "para satisfacer los requerimientos del proyecto identificado por: <b>#{proyect}</b>. #{@justificacion.razoncompra}.\n"+
                "\nPor lo anterior, la contratación propuesta se adecúa al supuesto de excepción "+
                'establecido en la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público en su '+
                "artículo 41, fracción #{justificacion.tipo.romano}; además de que se reúnen los requisitos previstos en el artículo 72 del "+
@@ -258,7 +257,7 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
     indent(30) do
       text 'V.1. MONTO ESTIMADO:', style: :bold
       move_down 20
-      text "El monto estimado de la contratación es la cantidad de #{monto_to_currency(@justificacion.monto_uno)} "+
+      text "El monto estimado de la contratación es la cantidad de <b>#{monto_to_currency(@justificacion.monto_uno)}</b> "+
                "mismo resultó el más conveniente de acuerdo con la Investigación de Mercado, "+
                "mediante la cual se verificó previo al inicio del procedimiento "+
                "de contratación, la existencia de oferta de los #{@justificacion.biensServicios} en la cantidad, "+
@@ -270,12 +269,12 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
     subTotal = @justificacion.monto_uno
     total = @justificacion.iva + subTotal
 
-    celda0 = {:content => 'SubTotal: ',:inline_format => true, align: :right, size: 10, :borders => []}
-    celda1 = {:content => 'Iva: ',:inline_format => true, align: :right, size: 10, :borders => []}
-    celda2 = {:content => '<b>Total: </b>', size: 10, align: :right,:borders => [], :inline_format => true}
-    celda3 = {:content => "#{monto_to_currency(@justificacion.monto_uno)}",:inline_format => true, align: :right, size: 10, :borders => []}
-    celda4 = {:content => "#{monto_to_currency(@justificacion.iva)}",:inline_format => true, align: :right, size: 10, :borders => []}
-    celda5 = {:content => "<b>#{monto_to_currency(total)}</b>",:inline_format => true, align: :right, size: 10, :borders => []}
+    celda0 = {:content => 'SubTotal: ',:inline_format => true, align: :right, size: 10, :borders => [], :padding=>2}
+    celda1 = {:content => 'Iva: ',:inline_format => true, align: :right, size: 10, :borders => [], :padding=>2}
+    celda2 = {:content => '<b>Total: </b>', size: 10, align: :right,:borders => [], :inline_format => true, :padding=>2}
+    celda3 = {:content => "#{monto_to_currency(@justificacion.monto_uno)}",:inline_format => true, align: :right, size: 10, :borders => [], :padding=>2}
+    celda4 = {:content => "#{monto_to_currency(@justificacion.iva)}",:inline_format => true, align: :right, size: 10, :borders => [], :padding=>2}
+    celda5 = {:content => "<b>#{monto_to_currency(total)}</b>",:inline_format => true, align: :right, size: 10, :borders => [], :padding=>2}
 
     data = [[celda0, celda3],
             [celda1, celda4],
@@ -283,12 +282,13 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
     indent(350) do
       table(data)
     end
+    move_down 20
     #sub_total = subTotal.to_s
     indent(30) do
       text 'V.2. FORMA DE PAGO PROPUESTA:', style: :bold
       move_down 20
       parcialidad = justificacion.subtotal / justificacion.num_pagos rescue 0.00
-      text "El monto total será pagado en #{justificacion.num_pagos} pago/s de #{monto_to_currency(parcialidad)}#{@mas_iva}. Los pagos se realizarán previa \f
+      text "El monto total será pagado en <b>#{justificacion.num_pagos} pago/s de #{monto_to_currency(parcialidad)}</b>#{@mas_iva}. Los pagos se realizarán previa \f
 verificación de la entrega y calidad de los bienes así como previo envío en formatos .pdf y .xml del Comprobante Fiscal Digital por Internet (CFDI) correspondiente que \f
 reúna los requisitos fiscales respectivos. Los pagos se efectuarán mediante TRANSFERENCIA".gsub(/\f\n/, ''),:align => :justify, :inline_format => true, :size => 12, :leading => 2, :character_spacing => 0.30
     end
@@ -298,7 +298,7 @@ reúna los requisitos fiscales respectivos. Los pagos se efectuarán mediante TR
     indent(30) do
       text 'Por lo anteriormente expuesto y fundado, se propone a ' + @justificacion.proveedor_uno.upcase+ ', con domicilio '+
                'ubicado en '+@justificacion.domicilio+', Registro Federal de Contribuyentes: '+@justificacion.rfc+', correo electrónico: '+@justificacion.email+' '+
-               'y número telefónico '+@justificacion.telefono+@justificacion.datosbanco,
+               'y número telefónico '+@justificacion.telefono+ @datos_banco,
            :align => :justify, :inline_format => true, :size => 12, :leading => 2, :character_spacing => 0.30
     end
 
