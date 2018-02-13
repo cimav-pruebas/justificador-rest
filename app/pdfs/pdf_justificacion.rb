@@ -155,7 +155,7 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
            size: 12, align: :justify, leading: 1.5, character_spacing: 0.18
     end
 
-    if @justificacion.es_unico
+    if @justificacion.es_unico then
       move_down 20
       celda0 = {:content => '<b>PROVEEDOR</b>',:inline_format => true, size: 10, :borders => [:bottom], :border_color => "b3b3b3"}
       celda1 = {:content => '<b>IMPORTE SIN IVA</b>',:inline_format => true, align: :right, size: 10, :borders => [:bottom], :border_color => "b3b3b3"}
@@ -196,15 +196,16 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
         table(data, :column_widths => [350, 110])
       end
       move_down 14
-    end
 
-    proveedor_selec = @justificacion.proveedor_uno
-    indent(30) do
-      text 'Motivo de la selección: ' + @justificacion.motivo_seleccion,size: 12, align: :justify
-      move_down 20
-      text"Siendo la oferta que en conjunto presenta las mejores condiciones en cuanto a calidad, precio, oportunidad \f
+      proveedor_selec = @justificacion.proveedor_uno
+      indent(30) do
+        text 'Motivo de la selección: ' + @justificacion.motivo_seleccion,size: 12, align: :justify
+        move_down 20
+        text"Siendo la oferta que en conjunto presenta las mejores condiciones en cuanto a calidad, precio, oportunidad \f
 y financiamiento, la de <b>#{proveedor_selec.upcase}</b>. La referida Investigación de Mercado se acompaña a la presente justificación para determinar \f
 que el procedimiento de contratación por adjudicación directa es el idóneo.".gsub(/\f\n/, ''),size: 12, leading: 2, align: :justify, character_spacing:0.5, :inline_format=>true
+      end
+
     end
 
     move_down 20
