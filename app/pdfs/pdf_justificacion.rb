@@ -7,28 +7,24 @@ class PdfJustificacion < Prawn::Document
     @justificacion =  justificacion
     @plazo = 0
     #@id_tipo = 2
-    @mas_iva = ''
-    @datos_banco = ''
-    @code = 'MXN'
-    @simbolo = '$'
+    @mas_iva = ""
+    @datos_banco = ""
+    @code = "MXN"
+    @simbolo = "$"
 
     # Operaciones Internas para el manejo de variables
 
     @diasCorresponde = 'Corresponde a '+@justificacion.num_dias_plazo.to_s+' días'
-    if @justificacion.num_dias_plazo == 1
-      @diasCorresponde = 'corresponde a un día'
+    if @justificacion.num_dias_plazo == 1 then
+      @diasCorresponde = "corresponde a un día"
     end
 
-    if(@justificacion.iva != 0 )
-      {
-          @mas_iva => 'mas IVA'
-      }
+    if(@justificacion.iva > 0.00 ) then
+      @mas_iva = " mas IVA"
     end
 
-    if(@justificacion.datosbanco != '')
-      {
-          @datos_banco => ', datos bancarios: '+ @justificacion.datosbanco
-      }
+    if(@justificacion.datosbanco != '') then
+      @datos_banco = ", datos bancarios: #{@justificacion.datosbanco}"
     end
 
     @map = Hash['texto1_I' => "No existan bienes o servicios alternativos o sustitutos técnicamente razonables, o bien, que en el \f
@@ -287,16 +283,14 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
     indent(350) do
       table(data)
     end
-    pagos = @justificacion.num_pagos.to_s
     #sub_total = subTotal.to_s
     indent(30) do
       text 'V.2. FORMA DE PAGO PROPUESTA:', style: :bold
       move_down 20
-      text 'El monto total será pagado en '+pagos+' pago/s de '+ "#{monto_to_currency(@justificacion.monto_uno)}"  +@mas_iva+ '. Los pagos se realizarán previa '+
-               'verificación de la entrega y calidad de los bienes así como previo envío en formatos .pdf y .xml '+
-               'del Comprobante Fiscal Digital por Internet (CFDI) correspondiente que reúna los requisitos fiscales '+
-               'respectivos. Los pagos se efectuarán mediante TRANSFERENCIA',
-           :align => :justify, :inline_format => true, :size => 12, :leading => 2, :character_spacing => 0.30
+      parcialidad = justificacion.subtotal / justificacion.num_pagos rescue 0.00
+      text "El monto total será pagado en #{justificacion.num_pagos} pago/s de #{monto_to_currency(parcialidad)}#{@mas_iva}. Los pagos se realizarán previa \f
+verificación de la entrega y calidad de los bienes así como previo envío en formatos .pdf y .xml del Comprobante Fiscal Digital por Internet (CFDI) correspondiente que \f
+reúna los requisitos fiscales respectivos. Los pagos se efectuarán mediante TRANSFERENCIA".gsub(/\f\n/, ''),:align => :justify, :inline_format => true, :size => 12, :leading => 2, :character_spacing => 0.30
     end
     move_down 20
     text 'IV.-PERSONA PROPUESTA PARA LA ADJUDICACIÓN DIRECTA: ', style: :bold, align: :center, size: 12
