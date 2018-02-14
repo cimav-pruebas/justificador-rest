@@ -12,6 +12,9 @@ class PdfJustificacion < Prawn::Document
     @code = "MXN"
     @simbolo = "$"
 
+    # si es Unico, la fraccion sera 1 siempre
+    romano = justificacion.es_unico ? 'I' : justificacion.tipo.romano
+
     # Operaciones Internas para el manejo de variables
 
     @diasCorresponde = "corresponde a <b>#{@justificacion.num_dias_plazo} días</b>"
@@ -83,7 +86,7 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
     indent(30) do
       text 'JUSTIFICACIÓN PARA ACREDITAR Y FUNDAR PROCEDIMIENTOS DE '+
                'CONTRATACION POR ADJUDICACION DIRECTA, COMO EXCEPCION AL DE '+
-               "LICITACION PUBLICA EN EL SUPUESTO DEL ARTICULO 41 FRACCION  #{justificacion.tipo.romano} DE LA "+
+               "LICITACION PUBLICA EN EL SUPUESTO DEL ARTICULO 41 FRACCION  #{romano} DE LA "+
                'LEY DE ADQUISICIONES, ARRENDAMINETOS Y SERVICIO EN EL SECTOR PUBLICO.',
            style: :bold,align: :justify, character_spacing: 0.25, size: 12
     end
@@ -115,7 +118,7 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
                'carácter de Titular del Área Requirente, por este conducto hago constar el acreditamiento del o '+
                'de los criterios, razones, fundamentos y motivos para no llevar a cabo el procedimiento de '+
                'licitación pública y celebrar la contratación a través del procedimiento de adjudicación directa en '+
-               "los términos establecidos en el artículo 41 Fracción #{justificacion.tipo.romano} de la Ley de Adquisiciones, "+
+               "los términos establecidos en el artículo 41 Fracción #{romano} de la Ley de Adquisiciones, "+
                'Arrendamientos y Servicios del Sector Público', :align => :justify, character_spacing: 0.20, size:12, leading: 1
     end
 
@@ -213,14 +216,14 @@ que el procedimiento de contratación por adjudicación directa es el idóneo.".
       text 'IV.- PROCEDIMIENTO DE CONTRATACIÓN PROPUESTO', style: :bold, align: :center, size: 12
       move_down 20
       text 'El procedimiento de contratación propuesto es el de adjudicación directa, en virtud de que en el '+
-               "presente caso la adjudicación se llevaría a cabo conforme la fracción #{justificacion.tipo.romano} del artículo 41 el cual "+
+               "presente caso la adjudicación se llevaría a cabo conforme la fracción #{romano} del artículo 41 el cual "+
                'menciona que este tipo de adjudicación se puede llevar a cabo siempre y cuando:',
            align: :justify, leading: 2, size: 12, character_spacing: 0.25
 
-      tmp = '' + "texto1_#{justificacion.tipo.romano}" + ''
+      tmp = '' + "texto1_#{romano}" + ''
       text "<b>#{@map[tmp]}</b>".gsub(/\f\n/, '')+ ' ' +
                'Actualizándose el supuesto de excepción a la licitación pública '+
-               "establecido en la fracción #{justificacion.tipo.romano} del artículo 41 de la Ley de Adquisiciones, Arrendamientos y "+
+               "establecido en la fracción #{romano} del artículo 41 de la Ley de Adquisiciones, Arrendamientos y "+
                'Servicios del Sector Público, en relación con lo establecido en el artículo 72 de su Reglamento.',
            align: :justify, size: 12, leading: 2, character_spacing: 0.25, :inline_format => true
 
@@ -237,7 +240,7 @@ que el procedimiento de contratación por adjudicación directa es el idóneo.".
                "para satisfacer los requerimientos del proyecto identificado por: <b>#{proyect}</b>. #{@justificacion.razoncompra}.\n"+
                "\nPor lo anterior, la contratación propuesta se adecúa al supuesto de excepción "+
                'establecido en la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público en su '+
-               "artículo 41, fracción #{justificacion.tipo.romano}; además de que se reúnen los requisitos previstos en el artículo 72 del "+
+               "artículo 41, fracción #{romano}; además de que se reúnen los requisitos previstos en el artículo 72 del "+
                'Reglamento de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público, tal y '+
                'como se desprende de la información presentada en esta justificación, así como de la Investigación '+
                'de Mercado; por lo que resulta procedente la contratación bajo el procedimiento de adjudicación '+
@@ -246,7 +249,7 @@ que el procedimiento de contratación por adjudicación directa es el idóneo.".
       move_down 20
       text "<b>B) FUNDAMENTOS:</b> La contratación se encuentra debidamente fundada en el artículo "+
                '134 de la Constitución Política de los Estados Unidos Mexicanos; en los artículos 26 '+
-               "fracción III, 40 y 41 fracción #{justificacion.tipo.romano} de la Ley de Adquisiciones, Arrendamientos y "+
+               "fracción III, 40 y 41 fracción #{romano} de la Ley de Adquisiciones, Arrendamientos y "+
                'Servicios del Sector Público; así como en los artículos 71 y 72 del Reglamento de la '+
                'Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público.',
            :align => :justify, :inline_format => true, :size => 12, :leading => 2, :character_spacing => 0.30
@@ -309,7 +312,7 @@ reúna los requisitos fiscales respectivos. Los pagos se efectuarán mediante TR
                ' DE EXCEPCIÓN A LA LICITACIÓN PÚBLICA:', style: :bold, align: :center, size: 12, character_spacing: 0.30
       move_down 10
       text 'El procedimiento de contratación por adjudicación directa es el idóneo, al actualizarse el '+
-               "supuesto de excepción al procedimiento de licitación pública previsto en el artículo 41, fracción #{justificacion.tipo.romano} de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público, aunado a que se "+
+               "supuesto de excepción al procedimiento de licitación pública previsto en el artículo 41, fracción #{romano} de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público, aunado a que se "+
                'corroboró la capacidad y experiencia de la persona propuesta, quien por ser proveedor único '+
                'presentó las mejores condiciones en cuanto a precio, calidad, financiamiento, oportunidad y '+
                'demás circunstancias pertinentes a efecto de asegurar a esta Entidad las mejores condiciones'+
