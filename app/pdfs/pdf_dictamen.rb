@@ -4,8 +4,12 @@ class PdfDictamen < Prawn::Document
     super()
 
     @justificacion = justificacion
+    mas_iva = ""
+    if(justificacion.iva > 0.00 ) then
+      mas_iva = " más IVA"
+    end
 
-    diasCorresponde = 'Corresponde a '+justificacion.num_dias_plazo.to_s+' días'
+    diasCorresponde = 'corresponde a '+justificacion.num_dias_plazo.to_s+' días'
     if justificacion.num_dias_plazo == 1
       diasCorresponde = 'corresponde a un día'
     end
@@ -92,31 +96,53 @@ disponible en el Sistema informático denominado COMPRANET:"
     txt = txt.gsub(/\f\n/, '')
     text txt, :align=>:justify, :inline_format => true
 
-    move_down 20
-    celda0 = {:content => '<b>PROVEEDOR</b>',:inline_format => true, size: 10, :borders => []}
-    celda1 = {:content => '<b>IMPORTE SIN IVA</b>',:inline_format => true, align: :right, size: 10, :borders => []}
-    celda2 = {:content => "<b>#{justificacion.proveedor_uno}</b>", size: 10, :borders => [], :inline_format => true}
-    celda3 = {:content => "<b>#{monto_to_currency(justificacion.monto_uno)}</b>",:inline_format => true, align: :right, size: 10, :borders => []}
-    celda4 = {:content => justificacion.proveedor_dos, size: 10, :borders => []}
-    celda5 = {:content => "#{monto_to_currency(justificacion.monto_dos)}", align: :right, size: 10, :borders => []}
-    celda6 = {:content => justificacion.proveedor_tres, size: 10, :borders => []}
-    celda7 = {:content => "#{monto_to_currency(justificacion.monto_tres)}", align: :right, size: 10, :borders => []}
-    data = [[celda0, celda1],
-            [celda2, celda3],
-            [celda4, celda5],
-            [celda6, celda7]]
-    indent(30,30)do
-      table(data, :column_widths => [350, 110])
-    end
+    if justificacion.es_unico then
+      move_down 20
+      celda0 = {:content => '<b>PROVEEDOR</b>',:inline_format => true, size: 10, :borders => [:bottom], :border_color => "b3b3b3"}
+      celda1 = {:content => '<b>IMPORTE SIN IVA</b>',:inline_format => true, align: :right, size: 10, :borders => [:bottom], :border_color => "b3b3b3"}
+      celda2 = {:content => "<b>#{@justificacion.proveedor_uno}</b>", size: 10, :borders => [], :inline_format => true, :padding => 2}
+      celda3 = {:content => "<b>#{monto_to_currency(@justificacion.monto_uno)}</b>",:inline_format => true, align: :right, size: 10, :borders => [], :padding => 2}
 
-    move_down 20
-    text "Motivo de la selección: #{justificacion.motivo_seleccion}.",align: :justify
-    move_down 10
-    txt ="Siendo la oferta que en conjunto presenta las mejores condiciones en cuanto a calidad, precio, oportunidad \f
-y financiamiento, la de <b>#{justificacion.proveedor_uno}</b>. La referida Investigación de Mercado se acompaña a \f
-la presente justificación para determinar que el procedimiento de contratación por adjudicación directa es el idóneo."
-    txt = txt.gsub(/\f\n/, '')
-    text txt, :align => :justify, :inline_format => true
+      data = [[celda0, celda1],
+              [celda2, celda3]]
+      indent(30,30)do
+        table(data, :column_widths => [350, 110])
+      end
+      move_down 20
+        text'Concluyendo que en conjunto es la única oferta en cuanto a obtener las mejores condiciones, calidad, '+
+                "precio, oportunidad y financiamiento, por ser el único proveedor que proporcione los #{justificacion.biensServicios} que se pretende " +
+                "contratar la de <b>#{justificacion.proveedor_uno.upcase}</b>. La referida Investigación de Mercado " +
+                "se acompaña a la presente justificación para determinar que el procedimiento de contratación por " +
+                "adjudicación directa es el idóneo.",:align=>:justify, :inline_format => true
+
+      move_down 10
+    else
+      move_down 20
+      celda0 = {:content => '<b>PROVEEDOR</b>',:inline_format => true, size: 10, :borders => [:bottom], :border_color => "b3b3b3"}
+      celda1 = {:content => '<b>IMPORTE SIN IVA</b>',:inline_format => true, align: :right, size: 10, :borders => [:bottom], :border_color => "b3b3b3"}
+      celda2 = {:content => "<b>#{@justificacion.proveedor_uno}</b>", size: 10, :borders => [], :inline_format => true, :padding => 2}
+      celda3 = {:content => "<b>#{monto_to_currency(@justificacion.monto_uno)}</b>",:inline_format => true, align: :right, size: 10, :borders => [], :padding => 2}
+      celda4 = {:content => @justificacion.proveedor_dos, size: 10, :borders => [], :padding => 2}
+      celda5 = {:content => "#{monto_to_currency(@justificacion.monto_dos)}", align: :right, size: 10, :borders => [], :padding => 2}
+      celda6 = {:content => @justificacion.proveedor_tres, size: 10, :borders => [], :padding => 2}
+      celda7 = {:content => "#{monto_to_currency(@justificacion.monto_tres)}", align: :right, size: 10, :borders => [], :padding => 2}
+      data = [[celda0, celda1],
+              [celda2, celda3],
+              [celda4, celda5],
+              [celda6, celda7]]
+      indent(50,30)do
+        table(data, :column_widths => [350, 110])
+      end
+
+        move_down 14
+        text "Motivo de la selección: #{justificacion.motivo_seleccion}.",align: :justify
+        move_down 10
+        txt ="Siendo la oferta que en conjunto presenta las mejores condiciones en cuanto a calidad, precio, oportunidad \f
+    y financiamiento, la de <b>#{justificacion.proveedor_uno}</b>. La referida Investigación de Mercado se acompaña a \f
+    la presente justificación para determinar que el procedimiento de contratación por adjudicación directa es el idóneo."
+        txt = txt.gsub(/\f\n/, '')
+        text txt, :align => :justify, :inline_format => true
+    end
 
     move_down 20
     text "IV.- PROCEDIMIENTO DE CONTRATACION PROPUESTO", :align=>:center, style: :bold
@@ -160,7 +186,7 @@ del Sector Publico, así como en los artículos 71 Y 72 del Reglamento de la Ley
     move_down 20
     text "V.1.   MONTO ESTIMADO:", style: :bold
     move_down 5
-    txt ="El monto estimado de la contratación es la cantidad de #{monto_to_currency(justificacion.monto_uno)}  (Importe en Letra)__ más IVA, \f
+    txt ="El monto estimado de la contratación es la cantidad de #{monto_to_currency(justificacion.monto_uno)}#{mas_iva}, \f
 mismo que resultó el más conveniente de acuerdo con la Investigación de Mercado, mediante la cual se verificó previo al inicio del procedimiento de \f
 contratación, la existencia de oferta de los bienes en la cantidad, calidad y oportunidad requeridos en los términos del artículo 28 del Reglamento \f
 de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público."
@@ -171,12 +197,12 @@ de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público."
     subTotal = justificacion.monto_uno
     total = justificacion.iva + subTotal
 
-    celda0 = {:content => 'Importe sin IVA: ',:inline_format => true, align: :right, size: 10, :borders => []}
-    celda1 = {:content => 'Iva: ',:inline_format => true, align: :right, size: 10, :borders => []}
-    celda2 = {:content => '<b>Total: </b>', size: 10, align: :right,:borders => [], :inline_format => true}
-    celda3 = {:content => "#{monto_to_currency(justificacion.monto_uno)}",:inline_format => true, align: :right, size: 10, :borders => []}
-    celda4 = {:content => "#{monto_to_currency(justificacion.iva)}",:inline_format => true, align: :right, size: 10, :borders => []}
-    celda5 = {:content => "<b>#{monto_to_currency(total)}</b>",:inline_format => true, align: :right, size: 10, :borders => []}
+    celda0 = {:content => 'Importe sin IVA: ',:inline_format => true, align: :right, size: 10, :borders => [], :padding=>2}
+    celda1 = {:content => 'Iva: ',:inline_format => true, align: :right, size: 10, :borders => [], :padding=>2}
+    celda2 = {:content => '<b>Total: </b>', size: 10, align: :right,:borders => [], :inline_format => true, :padding=>2}
+    celda3 = {:content => "#{monto_to_currency(justificacion.monto_uno)}",:inline_format => true, align: :right, size: 10, :borders => [], :padding=>2}
+    celda4 = {:content => "#{monto_to_currency(justificacion.iva)}",:inline_format => true, align: :right, size: 10, :borders => [], :padding=>2}
+    celda5 = {:content => "<b>#{monto_to_currency(total)}</b>",:inline_format => true, align: :right, size: 10, :borders => [], :padding=>2}
 
     data = [[celda0, celda3],
             [celda1, celda4],
@@ -189,7 +215,7 @@ de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público."
     text "V.2.   FORMA DE PAGO PROPUESTA:", style: :bold
     move_down 5
     parcialidad = justificacion.subtotal / justificacion.num_pagos rescue 0.00
-    txt ="El monto total será pagado en #{justificacion.num_pagos} pago/s de #{parcialidad} más IVA. \f
+    txt ="El monto total será pagado en #{justificacion.num_pagos} pago/s de #{monto_to_currency(parcialidad)}#{mas_iva}. \f
 Los pagos se realizarán previa verificación de la entrega y calidad de los bienes así como previo envío en formatos .pdf y .xml del Comprobante \f
 Fiscal Digital por Internet (CFDI) correspondiente que reúna los requisitos fiscales respectivos. Los pagos se efectuarán mediante transferencia \f
 interbancaria."

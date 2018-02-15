@@ -23,7 +23,7 @@ class PdfJustificacion < Prawn::Document
     end
 
     if(@justificacion.iva > 0.00 ) then
-      @mas_iva = " mas IVA"
+      @mas_iva = " más IVA"
     end
 
     @datos_banco = "."
@@ -177,7 +177,7 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
                 "precio, oportunidad y financiamiento, por ser el único proveedor que proporcione los #{@justificacion.biensServicios} que se pretende " +
                 "contratar la de <b>#{@justificacion.proveedor_uno.upcase}</b>. La referida Investigación de Mercado " +
                 "se acompaña a la presente justificación para determinar que el procedimiento de contratación por " +
-                "adjudicación directa es el idóneo.",size: 12, leading: 2, align: :justify, character_spacing:0.5, :inline_format=>true
+                "adjudicación directa es el idóneo.",:align=>:justify, :inline_format => true
       end
 
       move_down 10
@@ -261,7 +261,7 @@ que el procedimiento de contratación por adjudicación directa es el idóneo.".
     indent(30) do
       text 'V.1. MONTO ESTIMADO:', style: :bold
       move_down 20
-      text "El monto estimado de la contratación es la cantidad de <b>#{monto_to_currency(@justificacion.monto_uno)}</b> "+
+      text "El monto estimado de la contratación es la cantidad de <b>#{monto_to_currency(@justificacion.monto_uno)}</b>#{@mas_iva}, "+
                "mismo resultó el más conveniente de acuerdo con la Investigación de Mercado, "+
                "mediante la cual se verificó previo al inicio del procedimiento "+
                "de contratación, la existencia de oferta de los #{@justificacion.biensServicios} en la cantidad, "+
