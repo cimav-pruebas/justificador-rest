@@ -312,7 +312,7 @@ incumplimiento haya sido considerado como causa de desechamiento porque afecta d
     move_down 70
     text "ATENTAMENTE",style: :bold, align: :center, size: 12, character_spacing: 0.30
     move_down 50
-    text "#{justificacion.autoriza.nombre}\nRESPONSABLE DEL PROYECTO", style: :bold, align: :center, size: 12, character_spacing: 0.30
+    text "#{justificacion.autoriza.nombre}\n#{justificacion.autoriza_cargo}", style: :bold, align: :center, size: 12, character_spacing: 0.30
 
     number_pages"<page> / <total>", :at => [bounds.right - 165, -15],
                 :width => 150,
