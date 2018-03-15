@@ -87,13 +87,13 @@ de Adquisiciones, Arrendamientos y Servicios del Sector Público, publicado en e
       text 'JUSTIFICACIÓN PARA ACREDITAR Y FUNDAR PROCEDIMIENTOS DE '+
                'CONTRATACION POR ADJUDICACION DIRECTA, COMO EXCEPCION AL DE '+
                "LICITACION PUBLICA EN EL SUPUESTO DEL ARTICULO 41 FRACCION  #{romano} DE LA "+
-               'LEY DE ADQUISICIONES, ARRENDAMINETOS Y SERVICIO EN EL SECTOR PUBLICO.',
+               'LEY DE ADQUISICIONES, ARRENDAMIENTOS Y SERVICIO EN EL SECTOR PUBLICO.',
            style: :bold,align: :justify, character_spacing: 0.25, size: 12
     end
 
     move_down 50
     indent(100,100) do
-      text 'COMITÉ DE ADQUISICIONES, ARRENDAMINETOS Y SERVICIOS', align: :center, size: 13, leading: 3
+      text 'COMITÉ DE ADQUISICIONES, ARRENDAMIENTOS Y SERVICIOS', align: :center, size: 13, leading: 3
     end
 
     move_down 30
