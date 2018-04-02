@@ -10,7 +10,7 @@ class JustificacionesController < ApplicationController
   def all_by_id_empleado
 
     ids = Asistente.where("asistente_id = #{params[:id]}").collect(&:empleado_id).concat(Array(params[:id])).join(',')
-    @justificaciones = Justificacion.where("empleado_id in (#{ids})")
+    @justificaciones = Justificacion.where("empleado_id in (#{ids})").order(:requisicion)
 
   end
 
