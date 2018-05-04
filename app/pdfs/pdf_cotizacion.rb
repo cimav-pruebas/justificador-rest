@@ -48,6 +48,15 @@ class PdfCotizacion < Prawn::Document
     draw_text :"#{proveedor_selected}" , style: :bold, size: 11, :at=>[0, 595]
     draw_text :"#{domicilio}" , size: 11, :at=>[0, 580]
 
+=begin
+Por lo antes mencionado y con el objeto de conocer: a).- la existencia bienes, arrendamientos o servicios a requerir \f
+en las condiciones que se indican; b).- posibles proveedores a nivel nacional o internacional; c).- el precio estimado \f
+de lo requerido, y d).- la capacidad de cumplimiento de los requisitos de participación, nos permitimos solicitar su \f
+valioso apoyo a efecto de proporcionarnos la cotización de los bienes y/o servicios y/o arrendamientos \f
+descritos en el documento anexo (poner en el anexo la descripción con las especificaciones técnicas y requisitos de \f
+calidad, cantidad y oportunidad del o los bienes, arrendamiento y/o servicios a contratar).
+=end
+
     move_down 120
     txt = "El <b>Cimav</b>, como Centro de Investigación del Gobierno Federal, requiere para sus actividades de suministro, \f
 arrendamiento y/o prestación de servicios, mismas que se encuentran reguladas por la Ley de Adquisiciones, Arrendamientos \f
@@ -60,8 +69,7 @@ Por lo antes mencionado y con el objeto de conocer: a).- la existencia bienes, a
 en las condiciones que se indican; b).- posibles proveedores a nivel nacional o internacional; c).- el precio estimado \f
 de lo requerido, y d).- la capacidad de cumplimiento de los requisitos de participación, nos permitimos solicitar su \f
 valioso apoyo a efecto de proporcionarnos la cotización de los bienes y/o servicios y/o arrendamientos \f
-descritos en el documento anexo (poner en el anexo la descripción con las especificaciones técnicas y requisitos de \f
-calidad, cantidad y oportunidad del o los bienes, arrendamiento y/o servicios a contratar).
+descritos en la última hoja de este documento o en el o los documentos anexos.
 
 Dicha cotización se requiere que la remita en documento de la empresa, debidamente firmada por persona facultada, \f
 a la siguiente dirección:
@@ -83,7 +91,6 @@ se definirá el procedimiento a seguir para la contratación, el cual puede ser:
 TRES PERSONAS y/o ADJUDICACIÓN DIRECTA, mismo que se informará a las personas que presentaron su cotización.
 
 Este documento no genera obligación alguna para el centro.
-
 
 <b>#{justificacion.elabora.nombre}</b>"
     txt = txt.gsub(/\f\n/, '')
@@ -194,12 +201,35 @@ tipo de procedimiento de contratación)"
     end
 
     repeat :all do
-      move_down 15
+      move_down 20
       bounding_box [bounds.left, bounds.bottom + 25], :width  => bounds.width do
         move_down 15
         text "FO-CON-04", :size => 8, align: :right
       end
     end
+
+    start_new_page
+
+    font 'Helvetica'
+
+    image "public/logo-cimav.png", :at=>[bounds.left, bounds.top+2], :scale=>0.90
+
+    move_down 10
+    font 'Times-Roman'
+    text 'Centro de Investigación en Materiales Avanzados S. C.', size: 17, style: :bold, align: :center
+
+    stroke do
+      move_down 8
+      stroke_color 'b3b3b3'
+      stroke_horizontal_rule
+    end
+
+    move_down 20
+    txt = "Descripción con las especificaciones técnicas y requisitos de calidad, cantidad y oportunidad del o los bienes, arrendamiento y/o servicios a contratar:"
+    text txt,:align=>:justify
+
+    move_down 20
+    text "#{justificacion.descripcion}",:align=>:justify
 
   end
 
