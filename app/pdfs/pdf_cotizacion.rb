@@ -69,30 +69,29 @@ Por lo antes mencionado y con el objeto de conocer: a).- la existencia bienes, a
 en las condiciones que se indican; b).- posibles proveedores a nivel nacional o internacional; c).- el precio estimado \f
 de lo requerido, y d).- la capacidad de cumplimiento de los requisitos de participación, nos permitimos solicitar su \f
 valioso apoyo a efecto de proporcionarnos la cotización de los bienes y/o servicios y/o arrendamientos \f
-descritos en la última hoja de este documento o en el o los documentos anexos.
+descritos en la última hoja de este documento y/o en el o los documentos anexos.
 
 Dicha cotización se requiere que la remita en documento de la empresa, debidamente firmada por persona facultada, \f
 a la siguiente dirección:
 
 <i>#{direccion_cimav}</i>
 
-Y que sea dirigida a nombre de: <b> Jorge Arturo Parra Aguayo, departamento de Adquisiciones</b>.
+Y que sea dirigida a nombre de: <b>#{justificacion.elabora.nombre}</b>.
 
 Mucho agradeceré que en su respuesta se incluya: <i>Lugar y fecha de cotización y vigencia de la misma.</i>
 
-Para el caso de dudas, comentarios y/o aclaraciones, remitirlas a los correos: <b>jorge.parra@cimav.edu.mx</b> y <b>#{justificacion.elabora.cuenta_cimav}@cimav.edu.mx</b>
+Para el caso de dudas, comentarios y/o aclaraciones, remitirlas al correo: <b>#{justificacion.elabora.cuenta_cimav}@cimav.edu.mx</b>
 
 La fecha límite para presentar la cotización es el: <b>#{fecha(justificacion.fecha_termino)}</b>
 
-Favor de enviar acuse de recibo de esta solicitud al correo electrónico a: <b>#{justificacion.elabora.cuenta_cimav}@cimav.edu.mx</b>
+Favor de enviar acuse de recibo de esta solicitud al correo electrónico a: <b>jorge.parra@cimav.edu.mx</b>
 
 <b>NOTA</b>: Vencido el plazo de recepción de cotizaciones, el <b>Cimav</b> con fundamento en lo previsto en el artículo 26 de la LAASSP, \f
 se definirá el procedimiento a seguir para la contratación, el cual puede ser: LICITACIÓN PÚBLICA, INVITACIÓN A CUANDO MENOS \f
 TRES PERSONAS y/o ADJUDICACIÓN DIRECTA, mismo que se informará a las personas que presentaron su cotización.
 
-Este documento no genera obligación alguna para el centro.
+Este documento no genera obligación alguna para el centro."
 
-<b>#{justificacion.elabora.nombre}</b>"
     txt = txt.gsub(/\f\n/, '')
     text txt,size: 11, :align=>:justify, :inline_format => true
 
