@@ -7,7 +7,7 @@ json.array! @justificaciones do |justificacion|
                 :proveedor_uno, :proveedor_dos, :proveedor_tres, :bien_servicio, :subtotal, :iva, :importe, :condiciones_pago, :datosbanco, :razoncompra, :terminos_entrega,
                 :plazo_entrega, :rfc, :curp, :telefono, :email, :fecha_inicio, :fecha_termino, :fecha_elaboracion, :descripcion, :monto_uno, :monto_dos, :monto_tres, :domicilio,
                 :es_unico, :plazo, :num_pagos, :porcen_anticipo, :autoriza_cargo, :forma_pago, :num_dias_plazo, :motivo_seleccion, :es_nacional, :created_at, :updated_at, :identificador,
-                :partida_id
+                :partida_id, :decision
 
   json.url justificacion_url(justificacion, format: :json)
 

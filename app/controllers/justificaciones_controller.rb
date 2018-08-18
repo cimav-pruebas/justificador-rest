@@ -53,7 +53,23 @@ class JustificacionesController < ApplicationController
         File.delete("public/#{filename}");
       end
     end
+  end
+
+  def mercado
+    @justificacion = Justificacion.find(params[:id])
+    respond_to do |format|
+      format.pdf do
+        filename = "Mercado_#{@justificacion.requisicion}.pdf"
+        pdf = PdfMercado.new(@justificacion, params[:num_provee])
+        pdf.render_file  "public/#{filename}"
+        send_data pdf.render,
+                  filename: filename,
+                  type: 'application/pdf',
+                  disposition: "inline"
+        File.delete("public/#{filename}");
+      end
     end
+  end
 
   # GET /justificaciones/new
   def new
@@ -131,6 +147,6 @@ class JustificacionesController < ApplicationController
       params.require(:justificacion).permit(:empleado_id, :tipo_id, :empleado_elaboro_id, :empleado_autorizo_id, :moneda_id, :requisicion, :proyecto, :proveedor_uno, :proveedor_dos, :proveedor_tres, :bien_servicio, :subtotal, :iva, :importe,
                                             :condiciones_pago, :datosbanco, :razoncompra, :terminos_entrega, :plazo_entrega, :rfc, :curp, :telefono, :email, :fecha_inicio, :fecha_termino, :fecha_elaboracion, :descripcion,
                                             :monto_uno, :monto_dos, :monto_tres, :domicilio, :es_unico, :plazo, :num_pagos, :porcen_anticipo, :autoriza_cargo, :forma_pago, :num_dias_plazo, :motivo_seleccion, :es_nacional,
-                                            :identificador, :partida_id)
+                                            :identificador, :partida_id, :decision)
     end
 end
