@@ -412,9 +412,13 @@ reúna los requisitos fiscales respectivos. Los pagos se efectuarán mediante TR
       end
     end
 
-    move_down 30
+    move_down 40
+
+    if y < 400 then
+      start_new_page
+    end
+
     indent(30)do
-      move_down 10
       text 'VIII.- LUGAR Y FECHA DE EMISIÓN:', style: :bold, align: :center, size: 12, character_spacing: 0.30
       move_down 20
       text "En la Ciudad de Chihuahua, Chihuahua al #{fecha(justificacion.fecha_elaboracion)}, se emite la presente justificación para los efectos legales a que haya lugar.",
