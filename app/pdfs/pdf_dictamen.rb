@@ -296,6 +296,11 @@ En cumplimiento a lo establecido en el penúltimo párrafo del artículo 71 del 
     text txt, :align=>:justify, :inline_format => true
 
     move_down 20
+
+    if y < 400 then
+      start_new_page
+    end
+
     text "IX.- DICTAMEN", :align=>:center, style: :bold
     move_down 20
     txt ="Con fundamento a lo establecido en los artículos 40 y 41 penúltimo párrafo de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público y una vez \f
