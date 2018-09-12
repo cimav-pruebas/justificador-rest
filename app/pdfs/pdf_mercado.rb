@@ -35,11 +35,15 @@ class PdfMercado < Prawn::Document
 
     row=620
     draw_text :"No. Partida / CUCOP",  style: :bold,size: 11, :at=>[0,row-=14]
-    draw_text :"#{justificacion.partida.texto.upcase}",  size: 11, :at=>[10,row-=14]
+    move_down 74
+    indent(10) do
+      text "#{justificacion.partida.texto.upcase}",  size: 11
+    end
+    row = cursor
     draw_text :"No. Requisición",  style: :bold,size: 11, :at=>[0,row-=20]
     draw_text :"#{justificacion.requisicion}",  size: 11, :at=>[10,row-=14]
     draw_text :"Descripción",  style: :bold,size: 11, :at=>[0,row-=20]
-    move_down 144
+    move_down 64
     indent(10) do
       text "#{justificacion.descripcion}",  size: 11, align: :justify
     end
