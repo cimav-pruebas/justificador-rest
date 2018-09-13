@@ -241,7 +241,7 @@ El acreditamiento del o los criterios en los que se funda y motiva la excepción
     txt = txt.gsub(/\f\n/, '')
     text txt, :align=>:justify, :inline_format => true
 
-    start_new_page
+    # start_new_page
 
     txt = "
 <b>Economía</b>
