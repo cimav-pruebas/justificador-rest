@@ -35,7 +35,7 @@ class PdfDictamen < Prawn::Document
     text 'JUSTIFICACIÓN Y DICTAMEN DE USUARIO', style: :bold, align: :center
 
     move_down 30
-    text "L.C. ISAI ARENAS GARIBAY \nJEFE DEL DEPARTAMENTO DE ADQUISICIONES \nCIMAV, S.C.\n PRESENTE.",
+    text "L.C. JOŚE MAŔIA ESTRADA GǴOMEZ \nENCARGADO DEL DESPACHO DEL DEPARTAMENTO DE ADQUISICIONES \nCIMAV, S.C.\n PRESENTE.",
          style: :bold
     move_down 20
     indent(336) do
