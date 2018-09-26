@@ -40,7 +40,7 @@ derechos de autor, u otros derechos exclusivos, o por tratarse de obras de arte.
                 'texto1_XIV' => "Se trate de los servicios prestados por una persona física a que se refiere la fracción VII del artículo 3 de esta Ley, \f
 siempre que éstos sean realizados por ella misma sin requerir de la utilización de más de un especialista o técnico",
 
-                'texto1_XV' => "Se trate de servicios de mantenimiento de bienes en los que no sea posible precisar su alcance, establecer las \f
+                'texto1_XV' => "Se trate de servicios de mantenimiento de #{@justificacion.biensServicios} en los que no sea posible precisar su alcance, establecer las \f
 cantidades de trabajo o determinar las especificaciones correspondientes.",
 
                 'texto1_XVII' => "Se trate de equipos especializados, sustancias, y materiales de origen químico, físico químico o bioquímico para ser \f
@@ -53,8 +53,8 @@ encuentren autorizados por quien determine el titular de la dependencia o el ór
                 'plazo_1' => "La fecha en que se requiere el suministro de los #{@justificacion.biensServicios}, corresponde al día \f
 <b>#{fecha(justificacion.fecha_termino)}</b>. Las condiciones en las que se entregarán los #{@justificacion.biensServicios} son las siguientes:\n\n #{@justificacion.condiciones_pago}",
 
-                'plazo_2' => "El plazo en que se requiere el suministro de los #{@justificacion.biensServicios}, #{@diasCorresponde} después de la elaboración \f
-de este documento. Las condiciones en las que se entregarán los #{@justificacion.biensServicios} son las siguientes:\n\n #{@justificacion.condiciones_pago}",
+                'plazo_2' => "El plazo en que se requiere el suministro de los #{@justificacion.biensServicios}, #{@diasCorresponde} según la cotización del proveedor elegido. \f
+Las condiciones en las que se entregarán los #{@justificacion.biensServicios} son las siguientes:\n\n #{@justificacion.condiciones_pago}",
 
                 'nota_1' => "Asimismo se hace constar mediante el sello y firma del responsable del área de Almacén, la No Existencia de Bienes o Nivel de Inventario \f
 que demuestra que se cumplió con lo establecido en el artículo 27 del RLAASP.",
@@ -237,7 +237,7 @@ que el procedimiento de contratación por adjudicación directa es el idóneo.".
     proyect = @justificacion.proyecto.to_s
     indent(50) do
       text "<b>A) MOTIVOS:</b> La contratación de los  #{@justificacion.biensServicios} objeto de la presente justificación es necesaria "+
-               "para satisfacer los requerimientos del proyecto identificado por: <b>#{proyect}</b>. #{@justificacion.razoncompra}.\n"+
+               "para satisfacer los siguientes requerimientos del proyecto número <b>#{proyect}</b>: #{@justificacion.razoncompra}.\n"+
                "\nPor lo anterior, la contratación propuesta se adecúa al supuesto de excepción "+
                'establecido en la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público en su '+
                "artículo 41, fracción #{romano}; además de que se reúnen los requisitos previstos en el artículo 72 del "+
@@ -250,7 +250,7 @@ que el procedimiento de contratación por adjudicación directa es el idóneo.".
       text "<b>B) FUNDAMENTOS:</b> La contratación se encuentra debidamente fundada en el artículo "+
                '134 de la Constitución Política de los Estados Unidos Mexicanos; en los artículos 26 '+
                "fracción III, 40 y 41 fracción #{romano} de la Ley de Adquisiciones, Arrendamientos y "+
-               'Servicios del Sector Público; así como en los artículos 71 y 72 del Reglamento de la '+
+               "Servicios del Sector Público; así como en los artículos 71 #{justificacion.mostrar72} del Reglamento de la "+
                'Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público.',
            :align => :justify, :inline_format => true, :size => 12, :leading => 2, :character_spacing => 0.30
     end
@@ -293,7 +293,7 @@ que el procedimiento de contratación por adjudicación directa es el idóneo.".
       move_down 20
       parcialidad = justificacion.subtotal / justificacion.num_pagos rescue 0.00
       text "El monto total será pagado en <b>#{justificacion.num_pagos} pago/s de #{monto_to_currency(parcialidad)}</b>#{@mas_iva}. Los pagos se realizarán previa \f
-verificación de la entrega y calidad de los bienes así como previo envío en formatos .pdf y .xml del Comprobante Fiscal Digital por Internet (CFDI) correspondiente que \f
+verificación de la entrega y calidad de los #{@justificacion.biensServicios} así como previo envío en formatos .pdf y .xml del Comprobante Fiscal Digital por Internet (CFDI) correspondiente que \f
 reúna los requisitos fiscales respectivos. Los pagos se efectuarán mediante TRANSFERENCIA".gsub(/\f\n/, ''),:align => :justify, :inline_format => true, :size => 12, :leading => 2, :character_spacing => 0.30
     end
     move_down 20
@@ -421,7 +421,7 @@ reúna los requisitos fiscales respectivos. Los pagos se efectuarán mediante TR
     indent(30)do
       text 'VIII.- LUGAR Y FECHA DE EMISIÓN:', style: :bold, align: :center, size: 12, character_spacing: 0.30
       move_down 20
-      text "En la Ciudad de Chihuahua, Chihuahua al #{fecha(justificacion.fecha_elaboracion)}, se emite la presente justificación para los efectos legales a que haya lugar.",
+      text "En la Ciudad de Chihuahua, Chihuahua al #{fecha(justificacion.fecha_impresion)}, se emite la presente justificación para los efectos legales a que haya lugar.",
            :align => :justify, :inline_format => true, :size => 12, :leading => 2, :character_spacing => 0.30
 
       move_down 10

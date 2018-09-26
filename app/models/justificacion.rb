@@ -15,5 +15,10 @@ class Justificacion < ApplicationRecord
     return 'servicios'
   end
 
+  def mostrar72
+    [14,17].include?(self.tipo.fraccion) ? "y 72" : ""
+  end
+
+
 
 end

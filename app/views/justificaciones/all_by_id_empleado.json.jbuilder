@@ -12,9 +12,9 @@ json.array! @justificaciones do |justificacion|
                 :prov1_fuente,   :prov2_fuente,   :prov3_fuente,
                 :prov1_tecnicas, :prov2_tecnicas, :prov3_tecnicas,
                 :prov1_cantidad, :prov2_cantidad, :prov3_cantidad,
-                :prov1_nacional, :prov2_nacional, :prov3_nacional
+                :prov1_nacional, :prov2_nacional, :prov3_nacional, :fecha_impresion
 
-
+#
   json.url justificacion_url(justificacion, format: :json)
 
   json.empleado do

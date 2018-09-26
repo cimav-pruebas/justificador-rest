@@ -35,7 +35,7 @@ class PdfDictamen < Prawn::Document
     text 'JUSTIFICACIÓN Y DICTAMEN DE USUARIO', style: :bold, align: :center
 
     move_down 30
-    text "L.C. JOSE MARIA ESTRADA GOMEZ \nENCARGADO DEL DESPACHO DEL DEPARTAMENTO DE ADQUISICIONES \nCIMAV, S.C.\n PRESENTE.",
+    text "C.P. JOSE MARIA ESTRADA GOMEZ \nENCARGADO DEL DESPACHO DEL DEPARTAMENTO DE ADQUISICIONES \nCIMAV, S.C.\n PRESENTE.",
          style: :bold
     move_down 20
     indent(336) do
@@ -49,7 +49,7 @@ class PdfDictamen < Prawn::Document
     text txt, :align=>:justify
 
     move_down 20
-    txt ="I.- DESCRIPCION DE LOS BIENES: #{justificacion.partida.texto.upcase}"
+    txt ="I.- DESCRIPCION DE LOS #{@justificacion.biensServicios.upcase}: #{justificacion.partida.texto.upcase}"
     text txt, :align=>:center, style: :bold
 
     move_down 20
@@ -164,7 +164,7 @@ Lo anterior será aplicable para el caso de las partidas que se hayan declarado 
     text "IV.1. MOTIVACION Y FUNDAMENTACION LEGAL:", :align=>:center, style: :bold
     move_down 20
     indent (20) do
-      txt ="<b> A. MOTIVOS:</b> La contratación de los bienes objeto de la presente justificación es necesaria para satisfacer los requerimientos \f
+      txt ="<b> A. MOTIVOS:</b> La contratación de los #{@justificacion.biensServicios} objeto de la presente justificación es necesaria para satisfacer los requerimientos \f
 del proyecto identificado por: #{justificacion.proyecto} #{justificacion.razoncompra}, el cual se requiere para dar cumplimiento a las obligaciones \f
 y compromisos establecidos en las disposiciones normativas contraídas por el centro como parte de sus actividades propias.
 
@@ -176,7 +176,7 @@ Arrendamientos y Servicios del Sector Publico.
 
      <b>B. FUNDAMENTOS:</b> La contratación se encuentra debidamente fundada en el artículo 134 de la Constitución Política de los Estados Unidos \f
 Mexicanos, en los artículos 26 fracción III, 40 Y 41 fracción  #{justificacion.tipo.romano} de la Ley de Adquisiciones, Arrendamientos y Servicios \f
-del Sector Publico, así como en los artículos 71 Y 72 del Reglamento de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Publico."
+del Sector Publico, así como en los artículos 71 #{justificacion.mostrar72} del Reglamento de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Publico."
       txt = txt.gsub(/\f\n/, '')
       text txt, :align=>:justify, :inline_format => true
     end
@@ -188,7 +188,7 @@ del Sector Publico, así como en los artículos 71 Y 72 del Reglamento de la Ley
     move_down 5
     txt ="El monto estimado de la contratación es la cantidad de #{monto_to_currency(justificacion.monto_uno)}#{mas_iva}, \f
 mismo que resultó el más conveniente de acuerdo con la Investigación de Mercado, mediante la cual se verificó previo al inicio del procedimiento de \f
-contratación, la existencia de oferta de los bienes en la cantidad, calidad y oportunidad requeridos en los términos del artículo 28 del Reglamento \f
+contratación, la existencia de oferta de los #{@justificacion.biensServicios} en la cantidad, calidad y oportunidad requeridos en los términos del artículo 28 del Reglamento \f
 de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público."
     txt = txt.gsub(/\f\n/, '')
     text txt, :align=>:justify, :inline_format => true
@@ -216,7 +216,7 @@ de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público."
     move_down 5
     parcialidad = justificacion.subtotal / justificacion.num_pagos rescue 0.00
     txt ="El monto total será pagado en #{justificacion.num_pagos} pago/s de #{monto_to_currency(parcialidad)}#{mas_iva}. \f
-Los pagos se realizarán previa verificación de la entrega y calidad de los bienes así como previo envío en formatos .pdf y .xml del Comprobante \f
+Los pagos se realizarán previa verificación de la entrega y calidad de los #{@justificacion.biensServicios} así como previo envío en formatos .pdf y .xml del Comprobante \f
 Fiscal Digital por Internet (CFDI) correspondiente que reúna los requisitos fiscales respectivos. Los pagos se efectuarán mediante transferencia \f
 interbancaria."
     txt = txt.gsub(/\f\n/, '')
@@ -247,7 +247,7 @@ El acreditamiento del o los criterios en los que se funda y motiva la excepción
       txt = "
 <b>Economía</b>
 
-Con la investigación de mercado se establecieron precios y demás condiciones de calidad, financiamiento y oportunidad respecto de los bienes requeridos, con lo cual se asegura cumplir con los principios del artículo 134 de la Constitución Política de los Estados Unidos Mexicanos y de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Publico, en cuanto a precio, calidad, financiamiento, oportunidad y demás circunstancias pertinentes, por lo que el procedimiento de adjudicación directa permite en contraposición al procedimiento de licitación pública obtener con mayor oportunidad los bienes requeridos, generando ahorro de recursos por estar proponiendo la adjudicación del proveedor que mostro más solvencia técnica y económica en cuanto al tipo de servicio contratado.
+Con la investigación de mercado se establecieron precios y demás condiciones de calidad, financiamiento y oportunidad respecto de los #{@justificacion.biensServicios} requeridos, con lo cual se asegura cumplir con los principios del artículo 134 de la Constitución Política de los Estados Unidos Mexicanos y de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Publico, en cuanto a precio, calidad, financiamiento, oportunidad y demás circunstancias pertinentes, por lo que el procedimiento de adjudicación directa permite en contraposición al procedimiento de licitación pública obtener con mayor oportunidad los #{@justificacion.biensServicios} requeridos, generando ahorro de recursos por estar proponiendo la adjudicación del proveedor que mostro más solvencia técnica y económica en cuanto al tipo de servicio contratado.
 
 Lo anterior de acuerdo con lo establecido en el numeral 4.2.4 (Adjudicación Directa) y numeral 4.2.4.1.1 del Acuerdo por el que se modifica el Manual Administrativo de Aplicación General en Materia de Adquisiciones, Arrendamientos y Servicios del Sector Publico, publicado en el Diario Oficial de la Federación el día 03 de febrero de 2016.
 "
@@ -258,7 +258,7 @@ Lo anterior de acuerdo con lo establecido en el numeral 4.2.4 (Adjudicación Dir
       txt = "
 <b>Eficacia</b>
 
-Con el procedimiento de contratación por adjudicación directa, se lograra obtener con oportunidad los bienes, atendiendo a las características requeridas en contraposición con el procedimiento de licitación pública, dado que se reducen tiempos y se atiende en el tiempo requerido la eventualidad para la adquisición de los bienes a contratar, así como la generación de  economías, aunado a que la persona propuesta cuenta con experiencia y capacidad para satisfacer las necesidades requeridas, además de que se ofreció las mejores condiciones disponibles en cuanto a precio, calidad y oportunidad, con lo que se lograría el cumplimiento de los objetivos y resultados deseados en el tiempo requerido, por otra parte el proveedor propuesto ya ha realizado este tipo de servicios con anterioridad.
+Con el procedimiento de contratación por adjudicación directa, se lograra obtener con oportunidad los #{@justificacion.biensServicios}, atendiendo a las características requeridas en contraposición con el procedimiento de licitación pública, dado que se reducen tiempos y se atiende en el tiempo requerido la eventualidad para la adquisición de los #{@justificacion.biensServicios} a contratar, así como la generación de  economías, aunado a que la persona propuesta cuenta con experiencia y capacidad para satisfacer las necesidades requeridas, además de que se ofreció las mejores condiciones disponibles en cuanto a precio, calidad y oportunidad, con lo que se lograría el cumplimiento de los objetivos y resultados deseados en el tiempo requerido, por otra parte el proveedor propuesto ya ha realizado este tipo de servicios con anterioridad.
 
 Lo anterior de acuerdo con lo establecido en el numeral 4.2.4 (Adjudicación Directa) y numeral 4.2.4.1.1 del Acuerdo por el que se modifica el Manual Administrativo de Aplicación General en Materia de Adquisiciones, Arrendamientos y Servicios del Sector Publico, publicado en el Diario Oficial de la Federación el día 03 de febrero de 2016.
 "
@@ -282,13 +282,13 @@ Lo anterior de acuerdo con lo establecido en el numeral 4.2.4 (Adjudicación Dir
 
 <b>Honradez</b>
 
-La selección del procedimiento de adjudicación directa tiene como único fin contratar bajo las mejores condiciones los bienes requeridos, actuando con rectitud, responsabilidad e integridad y con apego estricto al marco jurídico aplicable, evitando así incurrir en actos de corrupción, ya que no se ha favorecido a persona alguna interesada en la contratación y se ha exigido la misma conducta a las personas que presentaron cotización, asimismo, en el proceso de análisis de propuestas, así como para la obtención de las mismas se involucró a diversos servidores públicos de las áreas administrativas que tienen bajo su control esta actividad.
+La selección del procedimiento de adjudicación directa tiene como único fin contratar bajo las mejores condiciones los #{@justificacion.biensServicios} requeridos, actuando con rectitud, responsabilidad e integridad y con apego estricto al marco jurídico aplicable, evitando así incurrir en actos de corrupción, ya que no se ha favorecido a persona alguna interesada en la contratación y se ha exigido la misma conducta a las personas que presentaron cotización, asimismo, en el proceso de análisis de propuestas, así como para la obtención de las mismas se involucró a diversos servidores públicos de las áreas administrativas que tienen bajo su control esta actividad.
 
 Lo anterior de acuerdo con lo establecido en el numeral 4.2.4 (Adjudicación Directa) y numeral 4.2.4.1.1 del Acuerdo por el que se modifica el Manual Administrativo de Aplicación General en Materia de Adquisiciones, Arrendamientos y Servicios del Sector Publico, publicado en el Diario Oficial de la Federación el día 03 de febrero de 2016.
 
 <b>Transparencia</b>
 
-Todas las personas que han presentado cotización para la integración del procedimiento de contratación  por adjudicación directa, han tenido acceso de manera oportuna, clara y completa de las características requeridas de los bienes, en el entendido que para garantizar la transparencia del procedimiento de contratación, la información se solicitó con las mismas bases y características, otorgando la misma oportunidad de presentar las propuestas, cuya contratación respectiva será incorporada al Sistema de Compras Gubernamentales (CompraNet), en los términos de las disposiciones legales aplicables.
+Todas las personas que han presentado cotización para la integración del procedimiento de contratación  por adjudicación directa, han tenido acceso de manera oportuna, clara y completa de las características requeridas de los #{@justificacion.biensServicios}, en el entendido que para garantizar la transparencia del procedimiento de contratación, la información se solicitó con las mismas bases y características, otorgando la misma oportunidad de presentar las propuestas, cuya contratación respectiva será incorporada al Sistema de Compras Gubernamentales (CompraNet), en los términos de las disposiciones legales aplicables.
 
 Lo anterior de acuerdo con lo establecido en el numeral 4.2.4 (Adjudicación Directa) y numeral 4.2.4.1.1 del Acuerdo por el que se modifica el Manual Administrativo de Aplicación General en Materia de Adquisiciones, Arrendamientos y Servicios del Sector Publico, publicado en el Diario Oficial de la Federación el día 03 de febrero de 2016."
       txt = txt.gsub(/\f\n/, '')
@@ -299,7 +299,7 @@ Lo anterior de acuerdo con lo establecido en el numeral 4.2.4 (Adjudicación Dir
     text "VIII.- LUGAR Y FECHA DE EMISION", :align=>:center, style: :bold
     move_down 20
 
-    txt ="En la ciudad de Chihuahua, Chihuahua, al <b>#{fecha(justificacion.fecha_elaboracion)}</b>, se emite el  presente dictamen y  justificación para los efectos legales a que haya lugar.
+    txt ="En la ciudad de Chihuahua, Chihuahua, al <b>#{fecha(justificacion.fecha_impresion)}</b>, se emite el  presente dictamen y  justificación para los efectos legales a que haya lugar.
 
 En cumplimiento a lo establecido en el penúltimo párrafo del artículo 71 del Reglamento de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Publico, se acompañara al presente la requisición,  a la cual se le deberá anexar, mediante sello del Departamento de Presupuesto, la constancia con la que se acredita la existencia de recursos para iniciar el procedimiento de contratación."
     txt = txt.gsub(/\f\n/, '')
@@ -316,7 +316,7 @@ En cumplimiento a lo establecido en el penúltimo párrafo del artículo 71 del 
     txt ="Con fundamento a lo establecido en los artículos 40 y 41 penúltimo párrafo de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público y una vez \f
 acreditados los criterios, razones, fundamentos y los motivos sobre la procedencia de la excepción a la licitación pública, con el carácter de titular del área requirente, \f
 <b>dictamino</b> bajo mi propia responsabilidad, sobre la procedencia de la excepción a la licitación pública y al procedimiento de contratación por adjudicación directa del \f
-suministro de los bienes consumibles de herramientas menores para el mantenimiento del equipo y edificio del Centro de Investigación en Materiales Avanzados, S.C. (CIMAV) “; \f
+suministro de los #{@justificacion.biensServicios} consumibles de herramientas menores para el mantenimiento del equipo y edificio del Centro de Investigación en Materiales Avanzados, S.C. (CIMAV) “; \f
 cuya partida presupuestal según el clasificador por objeto del gasto es  la numero” <b>“#{justificacion.partida.texto}”</b> por encontrarse el caso antes mencionado en el \f
 supuesto de excepción, en la fracción #{justificacion.tipo.romano} del   artículo 41 de la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Publico, el cual \f
 señala que  cuando <b>“Se haya declarado desierta una licitación pública, siempre que se mantengan los requisitos establecidos en la convocatoria a la licitación cuyo \f

@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   get '/cotizaciones/:id/:num_provee', to: 'justificaciones#cotizacion'
   get '/mercado/:id', to: 'justificaciones#mercado'
 
+  get '/justificaciones/show_by_requisicion/:requisicion', to: 'justificaciones#show_by_requisicion'
 end

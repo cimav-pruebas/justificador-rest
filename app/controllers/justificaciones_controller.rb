@@ -14,10 +14,16 @@ class JustificacionesController < ApplicationController
 
   end
 
+  def show_by_requisicion
+    justificaciones = Justificacion.where("requisicion LIKE '%#{params[:requisicion]}%'")
+    render json: justificaciones
+  end
+
   # GET /justificaciones/1
   # GET /justificaciones/1.json
   def show
     @justificacion = Justificacion.find(params[:id])
+    @justificacion.fecha_impresion = Date.today
     respond_to do |format|
       format.html
       format.json
@@ -152,7 +158,7 @@ class JustificacionesController < ApplicationController
                                             :prov1_fuente, :prov2_fuente, :prov3_fuente,
                                             :prov1_tecnicas, :prov2_tecnicas, :prov3_tecnicas,
                                             :prov1_cantidad, :prov2_cantidad, :prov3_cantidad,
-                                            :prov1_nacional, :prov2_nacional, :prov3_nacional)
+                                            :prov1_nacional, :prov2_nacional, :prov3_nacional, :fecha_impresion)
     end
 
 end
