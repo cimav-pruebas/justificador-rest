@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :justificaciones
   resources :monedas
   resources :tipos
+  resources :proveedores
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/justificaciones/all_by_id_empleado/:id', to: 'justificaciones#all_by_id_empleado'
