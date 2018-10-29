@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180925213622) do
+ActiveRecord::Schema.define(version: 20181023164646) do
 
   create_table "asistentes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.bigint "asistente_id"
@@ -79,6 +79,24 @@ ActiveRecord::Schema.define(version: 20180925213622) do
     t.integer "prov2_fuente", default: 2
     t.integer "prov3_fuente", default: 1
     t.date "fecha_impresion"
+    t.string "prov1_rfc"
+    t.string "prov1_telefono"
+    t.string "prov1_email"
+    t.string "prov1_domicilio"
+    t.string "prov1_banco"
+    t.string "prov2_rfc"
+    t.string "prov3_rfc"
+    t.string "prov2_telefono"
+    t.string "prov3_telefono"
+    t.string "prov2_email"
+    t.string "prov3_email"
+    t.string "prov2_domicilio"
+    t.string "prov3_domicilio"
+    t.string "prov2_banco"
+    t.string "prov3_banco"
+    t.string "prov1_contacto"
+    t.string "prov2_contacto"
+    t.string "prov3_contacto"
     t.index ["moneda_id"], name: "index_justificaciones_on_moneda_id"
     t.index ["partida_id"], name: "index_justificaciones_on_partida_id"
     t.index ["tipo_id"], name: "index_justificaciones_on_tipo_id"

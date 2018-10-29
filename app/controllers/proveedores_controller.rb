@@ -8,7 +8,8 @@ class ProveedoresController < ApplicationController
                        pv01_contacto as contacto,
                        CONCAT(pv01_direccion, ', ', pv01_colonia, ', ', pv01_ciudad, ', ', pv01_codigo_postal) as domicilio,
                        CONCAT(pv01_telefono1, ', ', pv01_telefono_contacto) as telefono,
-                       CONCAT(pv01_email, ', ', pv01_email60, ', ', pv01_email_contacto) as telefono")
+                       pv01_clabe as banco,
+                       CONCAT(pv01_email, ', ', pv01_email60, ', ', pv01_email_contacto) as email")
                        .all
 
     render json: @proveedores
